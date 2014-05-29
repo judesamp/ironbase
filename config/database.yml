@@ -1,0 +1,18 @@
+development:
+  adapter: postgresql
+  encoding: utf8
+  database: ironbase_development
+  pool: 5
+
+test:
+  adapter: postgresql
+  encoding: utf8
+  reconnect: false
+  database: ironbase_test
+  pool: 5
+
+production:
+  adapter: postgresql
+  encoding: utf8
+  database: ironbase
+  pool: 5
