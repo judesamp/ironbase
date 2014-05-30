@@ -14,6 +14,8 @@ class CohortsController < ApplicationController
     @cohort = Cohort.find(params[:id])
   end
 
+  
+
   private
   def cohort_params
     params.require(:cohort).permit(:name, :subject, :start_date, :end_date, :course_id, :location_id, :instructor)

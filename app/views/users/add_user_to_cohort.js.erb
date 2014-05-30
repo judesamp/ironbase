@@ -1,0 +1,7 @@
+$('.ironyarders').fadeOut('slow', function() {
+
+  $('.ironyarders').html("<%= escape_javascript render(:partial => 'cohorts/ironyarders', :locals => { :cohort => @cohort })%>");
+
+});
+
+$('.ironyarders').fadeIn();

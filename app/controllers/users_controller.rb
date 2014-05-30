@@ -14,6 +14,22 @@ class UsersController < ApplicationController
   def cohort_dashboard
   end
 
+  def add_user_to_cohort
+    user = User.find(params[:users][:user_id])
+    @cohort = Cohort.find(params[:users][:cohort_id])
+    if @cohort.users.include? user
+      respond_to do |format|
+        format.js { render status: 500}
+      end
+    else
+      @cohort.users << user
+      respond_to do |format|
+        format.js
+      end
+    end
+    
+  end
+
   private
 
   def ensure_admin

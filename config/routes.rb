@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get 'dashboard'
       get 'ironyard_dashboard'
       get 'cohort_dashboard'
+      patch 'add_user_to_cohort' => 'users#add_user_to_cohort'
  
   end
 
