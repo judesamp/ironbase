@@ -1,0 +1,34 @@
+.row
+  .large-8.large-centered.columns
+    %h1.inline_title= @cohort.name
+    (
+    = @cohort.start_date
+    = @cohort.end_date
+    )
+    .span.button
+      Edit Cohort
+    .span.button
+      Add Existing User
+    .span.button
+      Add New User
+
+.row.ironyarders
+  .large-4
+    - @cohort.users.each do |user|
+      user.name
+      %br
+
+
+
+
+.progress.large-6.success.round 
+  - x = 
+  %span.meter{style:"width: #{(100 - (@cohort.end_date - Date.today)).to_i}%"}
+
+
+.add_user_modal
+  %h1 Add User to Cohort
+  - User.all.each do |user|
+    = user.email
+    = check_box_tag user.id, user.cohorts.include?(@cohort), user.cohorts.include?(@cohort), data: {"cohort-id" => @cohort.id}
+    %br

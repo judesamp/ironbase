@@ -8,12 +8,52 @@
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
 
+
+
   <body>
 
+    <div class="top-bar">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="#">IronBaseOne</a></h1>
+        </li>
+      </ul>
+      <div class="right">
+        <% if user_signed_in? %>
+          <span>logged in as <%= current_user.email %></span>
+          <% if current_user.has_role? :admin %>
+            <a class="button" href="<%= cohort_dashboard_users_path %>">Cohort Dashboard</a>
+            <a class="button" href="<%= ironyard_dashboard_users_path %>">Ironyard Dashboard</a>
+          <% else %>
+            <a class="button" href="<%= dashboard_users_path %>">Your Dashboard</a>
+          <% end %>
+
+          <%= link_to('Logout', destroy_user_session_path, :method => :delete, class: "button") %> 
+    
+        <% else %>
+          <%= link_to('Login', new_user_session_path, class: "button") %>
+          <%= link_to('Sign up', new_user_registration_path, class: "button") %> 
+        <% end %>
+      </div>
+    </div>
+  
+    <% if flash[:notice] %>
+      <div class="alert-message warning">
+        <p><%= flash[:notice] %></p>
+      </div>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <div class="alert-message error">
+        <p><%= flash[:alert] %></p>
+      </div>
+    <% end %>
+
     <%= yield %>
-    <%= javascript_include_tag "application" %>
+    
   </body>
 </html>

@@ -2,6 +2,21 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   devise_for :users
+
+  resource :users do
+ 
+      get 'dashboard'
+      get 'ironyard_dashboard'
+      get 'cohort_dashboard'
+ 
+  end
+
+  resources :courses
+
+  resources :locations
+
+  resources :cohorts
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

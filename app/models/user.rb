@@ -1,13 +1,12 @@
 class User < ActiveRecord::Base
-  has_many :assignments, through: :assignment_queue
+  rolify
   has_many :courses
-  has_many :cohorts, through: :enrollment
+  has_many :enrollments
+  has_many :cohorts, through: :enrollments
   has_many :submissions
-  #has_many :comments
+  has_many :comments
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
-
-
 
 end

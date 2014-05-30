@@ -1,0 +1,13 @@
+= f.label :name
+= f.text_field :name
+= f.label :subject
+= f.text_field :subject
+= f.label :start_date
+= f.date_field :start_date
+= f.label :end_date
+= f.date_field :end_date
+= f.label :course
+= f.select :course_id, options_for_select(Course.all.collect {|l| [ l.name, l.id ] })
+= f.label :location
+= f.select :location_id, options_for_select(Location.all.collect {|l| [ l.name, l.id ] }, @location.id)
+= f.submit
