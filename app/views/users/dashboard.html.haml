@@ -1,1 +1,21 @@
-student dash
+.row
+  .large-8.medium-8.columns
+    = image_tag @image_source
+    - if @user.first_name.present?
+      = @user.first_name
+      = @user.last_name
+    - else
+      = @user.email
+    %a{"data-dropdown" => "hover1", "data-options" => "align:right; is_hover:true;", href: "#"} 
+      User Actions
+      %ul#hover1.f-dropdown{"data-dropdown-content" => ""}
+        %li
+          %a{href: "#"} Add a Name
+        %li
+          %a{href: "#"} Edit Settings
+        %li
+          %a{href: "#", class: "remove", data: {"user-id" => @user.id, "user-email" => @user.email}} 
+            Edit Info
+  .large-4.medium-4.columns
+    .span.button
+      Cohort Dashboard

@@ -1,0 +1,15 @@
+.text-center
+  %h1.inline_title= @assignment.name
+  = "(Due Date: #{@assignment.due_date})" 
+
+.row
+  .large-4.medium-4.medium-centered.large-centered.columns
+
+    
+    
+
+    %p= @assignment.description 
+
+    .edit_assignment_modal
+      .span.button
+        Edit Your Assignment

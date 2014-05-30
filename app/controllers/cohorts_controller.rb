@@ -2,7 +2,6 @@ class CohortsController < ApplicationController
 
   def create
     @cohort = Cohort.new(cohort_params)
-    puts @cohort
     if @cohort.save
       redirect_to location_path(@cohort.location_id), notice: "Your cohort has been created!"
     else
@@ -12,6 +11,8 @@ class CohortsController < ApplicationController
 
   def show
     @cohort = Cohort.find(params[:id])
+    @active_cohort_users = @cohort.users.joins(:enrollments).where("enrollments.status" => "active")
+    puts @active_cohort_users.inspect
   end
 
   

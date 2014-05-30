@@ -1,10 +1,6 @@
 .row
-  .large-8.large-centered.columns
-    %h1.inline_title= @cohort.name
-    (
-    = @cohort.start_date
-    = @cohort.end_date
-    )
+  .large-12.columns
+    %h1.inline_title= pretty_cohort_name(@cohort)
     .span.button
       Edit Cohort
     .span.button
@@ -13,15 +9,32 @@
       Add New User
 
 .row.ironyarders
-  .large-4
-    - @cohort.users.each do |user|
+  .large-4.medium-4.columns
+    %h4
+      Ironyarders
+    - @active_cohort_users.each do |user|
       = user.email
+      %a{"data-dropdown" => "hover1", "data-options" => "align:right; is_hover:true;", href: "#"} User Actions
+      %ul#hover1.f-dropdown{"data-dropdown-content" => ""}
+        %li
+          %a{href: "#"} Insert something
+        %li
+          %a{href: "#"} Insert something
+        %li
+          %a{href: "#", class: "remove", data: {"user-id" => user.id, "user-email" => user.email, "cohort-id" => @cohort.id}} Remove the User
+      %br
+
+  .large-8.medium-4.columns
+    %h4
+      Assignments
+    - @cohort.assignments.each do |assignment|
+      = link_to assignment.name, assignment_path(assignment)
+      = pretty_due_date(assignment.due_date)
       %br
 
 
 
-
-.progress.large-6.success.round 
+.progress.large-12.success.round 
   - x = 
   %span.meter{style:"width: #{(100 - (@cohort.end_date - Date.today)).to_i}%"}
 
@@ -30,5 +43,11 @@
   %h1 Add User to Cohort
   - User.all.each do |user|
     = user.email
-    = check_box_tag user.id, user.cohorts.include?(@cohort), user.cohorts.include?(@cohort), data: {"cohort-id" => @cohort.id}
+    = check_box_tag user.id, enrollment_status_active?(@cohort, user), enrollment_status_active?(@cohort, user), data: {"cohort-id" => @cohort.id}
     %br
+
+.new_assignment_modal
+  %h1 Create a New Assignment
+  = form_for Assignment.new do |f|
+    = f.hidden_field :cohort_id, :value => @cohort.id
+    = render 'assignments/form', f: f

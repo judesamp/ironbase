@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140530005719) do
+ActiveRecord::Schema.define(version: 20140530220705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20140530005719) do
   create_table "assignments", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "due_date"
@@ -28,7 +27,6 @@ ActiveRecord::Schema.define(version: 20140530005719) do
 
   create_table "cohorts", force: true do |t|
     t.string   "name"
-    t.string   "subject"
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at"
@@ -58,6 +56,7 @@ ActiveRecord::Schema.define(version: 20140530005719) do
     t.integer  "cohort_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status",     default: "active"
   end
 
   create_table "links", force: true do |t|
@@ -119,7 +118,6 @@ ActiveRecord::Schema.define(version: 20140530005719) do
     t.datetime "updated_at"
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "cohort_id"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

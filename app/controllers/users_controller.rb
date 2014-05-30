@@ -1,9 +1,15 @@
+require 'digest/md5'
+
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_filter :ensure_admin, only: [:course_dashboard, :cohort_dashboard]
 
   def dashboard
-
+    @user = current_user
+    #move gravatar stuff; store in db?
+    email = @user.email.downcase
+    hash = Digest::MD5.hexdigest(email)
+    @image_source = "http://www.gravatar.com/avatar/#{hash}"
   end
 
   def ironyard_dashboard
@@ -17,20 +23,56 @@ class UsersController < ApplicationController
   def add_user_to_cohort
     user = User.find(params[:users][:user_id])
     @cohort = Cohort.find(params[:users][:cohort_id])
+    enrollment_relation = Enrollment.where("cohort_id = ? AND user_id = ?", params[:users][:cohort_id], params[:users][:user_id])
+    enrollment = enrollment_relation.first
+
     if @cohort.users.include? user
-      respond_to do |format|
-        format.js { render status: 500}
+      if enrollment.status == "active"
+        respond_to do |format|
+          format.js {render plain: '0'}
+        end
+      else
+        enrollment.status = "active"
+        enrollment.save
+        @active_cohort_users = @cohort.users.joins(:enrollments).where("enrollments.status" => "active")
+        respond_to do |format|
+          format.js
+        end
       end
     else
       @cohort.users << user
+      @active_cohort_users = @cohort.users.joins(:enrollments).where("enrollments.status" => "active")
+
       respond_to do |format|
         format.js
       end
     end
-    
+  end
+
+  def remove_user_from_cohort
+    @cohort = Cohort.find(params[:users][:cohort_id])
+    enrollment_relation = Enrollment.where("cohort_id = ? AND user_id = ?", params[:users][:cohort_id], params[:users][:user_id])
+    enrollment =  enrollment_relation.first
+    puts 'above inspect'
+    puts enrollment.inspect
+    enrollment.status = "inactive"
+    if enrollment.save!
+      @active_cohort_users = @cohort.users.joins(:enrollments).where("enrollments.status" => "active")
+      respond_to do |format|
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.js {render status: 500}
+      end
+    end
   end
 
   private
+
+  def enrollment_exists?
+    !Enrollment.find_by_cohort_id(params[:users][:cohort_id]).nil?
+  end
 
   def ensure_admin
     unless current_user.present? and current_user.has_role? :admin
