@@ -1,6 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.action_mailer.default_url_options = { :host => 'http://stormy-garden-7330.herokuapp.com/' }
+  config.action_mailer.default_url_options = { :host => 'stormy-garden-7330.herokuapp.com' }
   # Code is not reloaded between requests.
   config.cache_classes = true
 
