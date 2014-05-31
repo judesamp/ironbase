@@ -20,6 +20,7 @@ $ ->
   $(document).on 'click', '.remove', ->
     user_id = $(this).attr('data-user-id');
     user_email = $(this).attr('data-user-email');
+    console.log(user_email)
     cohort_id = $(this).attr('data-cohort-id');
     confirm_string = "Are you sure you want to remove " + user_email + " from this cohort?"
     if confirm(confirm_string)

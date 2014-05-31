@@ -1,15 +1,76 @@
-.text-center
-  %h1.inline_title= @assignment.name
-  = "(Due Date: #{@assignment.due_date})" 
+.row.user_top
+  .large-6.medium-6.columns
+    = image_tag grab_gravatar
+    - if current_user.first_name.present?
+      = current_user.first_name
+      = current_user.last_name
+    - else
+      %h4.inline_title
+        = current_user.email
+    %a{"data-dropdown" => "hover1", "data-options" => "align:right; is_hover:true;", href: "#"} 
+      Actions
+      %ul#hover1.f-dropdown{"data-dropdown-content" => ""}
+        %li
+          %a{href: "#", class: "add_name"} Add a Name
+        %li
+          %a{href: "#", class: "edit_settings"} Edit Settings
+        %li
+          %a{href: "#", class: "email_instructor"} Email Instructor
+        %li
+          %a{href: "#", class: "edit_info", data: {"user-id" => current_user.id, "user-email" => current_user.email}} 
+            Edit Info
 
-.row
-  .large-4.medium-4.medium-centered.large-centered.columns
+  .large-6.medium-6.columns
+    %h3.inline_title.user_cohort_name= pretty_cohort_name(current_cohort(current_user))
+%br
 
-    
-    
+.large-12.medium-12.columns.admin_main
+  %h4.large-12.medium-12.columns.admin_main_title
+    = @assignment.name
+    = "(Due Date: #{@assignment.due_date})"
+    - if current_user.has_role? :admin
+      .span.button.tiny.round.assignment_button
+        Edit This Assignment
+    -else
+      - if @submission.nil?
+        .span.button.tiny.round.assignment_button
+          Submit Assignment
+      - else
+        .span.button.tiny.round.assignment_button
+          Edit Your Submission
 
-    %p= @assignment.description 
+      .span.button.tiny.round.secondary
+        .color
+          - unless @submission.nil?
+            = link_to "View Your Submission", submission_path(@submission.id)
+  .row
+    .large-6.medium-6.large-centered.medium-centered.assignment_holder.panel.columns.assignment_box.callout
+      Current Status:
+      - if @submission.nil?
+        Not Yet Submitted
+      - else
+        = pretty_workflow_state(@submission.workflow_state)
+  .row
+    .large-6.medium-6.large-centered.medium-centered.panel.columns
+      %h4.assignment_description_title
+        Assignment Description
+      %br
+      = @assignment.description
 
-    .edit_assignment_modal
-      .span.button
-        Edit Your Assignment
+- if current_user.has_role? :admin
+  .edit_assignment_modal
+
+- else
+  .new_submission_modal
+    %h1 Submit your Assignment
+    = form_for Submission.new do |f|
+      = f.hidden_field :assignment_id, :value => @assignment.id
+      = f.hidden_field :user_id, :value => current_user.id
+      = render 'submissions/form', f: f
+  
+  .edit_submission_modal
+    %h1 Edit your Assignment
+    = form_for @submission, url: submission_path(@submission), method: :patch do |f|
+      = render 'submissions/form', f: f
+
+      

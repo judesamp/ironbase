@@ -23,9 +23,9 @@
   %br
   - @active_cohort_users.each do |user|
     = link_to user.email, cohort_path(@cohort)
-    %span.button.tiny.secondary.round.dropdown{"data-dropdown" => "drop1", href: "#"} Actions
+    %span.button.tiny.secondary.round.dropdown{"data-dropdown" => "drop#{user.id}", href: "#"} Actions
     %br/
-    %ul#drop1.f-dropdown{"data-dropdown-content" => ""}
+    %ul.f-dropdown{"data-dropdown-content" => "", id: "drop#{user.id}"}
       %li
         %a{href: "#"} This is a link
       %li

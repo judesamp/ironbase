@@ -5,13 +5,9 @@ class UsersController < ApplicationController
   before_filter :ensure_admin, only: [:course_dashboard, :cohort_dashboard]
 
   def dashboard
-    @user = current_user
-    #move gravatar stuff; store in db?
-    email = @user.email.downcase
-    hash = Digest::MD5.hexdigest(email)
-    @image_source = "http://www.gravatar.com/avatar/#{hash}"
     #query this in a different way later
-    @cohort = @user.cohorts.first
+    @user = current_user
+    @cohort = current_user.cohorts.first
   end
 
   def ironyard_dashboard

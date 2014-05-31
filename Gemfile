@@ -15,6 +15,7 @@ gem 'rolify'
 gem 'foundation-rails'
 gem 'haml-rails'
 gem 'rails_12factor'
+gem 'workflow'
 
 
 group :development, :test do

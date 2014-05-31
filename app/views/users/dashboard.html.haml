@@ -1,6 +1,6 @@
 .row.user_top
   .large-6.medium-6.columns
-    = image_tag @image_source
+    = image_tag grab_gravatar
     - if @user.first_name.present?
       = @user.first_name
       = @user.last_name
