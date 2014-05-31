@@ -21,7 +21,10 @@
             Edit Info
 
   .large-6.medium-6.columns
-    %h3.inline_title.user_cohort_name= pretty_cohort_name(@cohort)
+    - if @cohort.nil?
+      %h3.inline_title.user_cohort_name= Join a Cohort!
+    -else
+      %h3.inline_title.user_cohort_name= pretty_cohort_name(@cohort)
 %br
 
 
