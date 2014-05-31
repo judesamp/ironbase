@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :enrollment_status_active?, :pretty_date, :pretty_cohort_name, :pretty_due_date
   
-
-
   def after_sign_in_path_for(resource)
     if resource.has_role? :admin
       ironyard_dashboard_users_path(resource)

@@ -15,8 +15,6 @@ class CohortsController < ApplicationController
     puts @active_cohort_users.inspect
   end
 
-  
-
   private
   def cohort_params
     params.require(:cohort).permit(:name, :subject, :start_date, :end_date, :course_id, :location_id, :instructor)

@@ -1,42 +1,47 @@
 .row
   .large-12.columns
-    %h1.inline_title= pretty_cohort_name(@cohort)
-    .span.button
+    %h3.inline_title= pretty_cohort_name(@cohort)
+    .span.button.tiny.round.alert
       Edit Cohort
-    .span.button
+    .span.button.tiny.round.alert
       Add Existing User
-    .span.button
+    .span.button.tiny.round.alert
       Add New User
+    .span.button.tiny.round.alert
+      Create a New Assignment
 
-.row.ironyarders
-  .large-4.medium-4.columns
-    %h4
-      Ironyarders
-    - @active_cohort_users.each do |user|
-      = user.email
-      %a{"data-dropdown" => "hover1", "data-options" => "align:right; is_hover:true;", href: "#"} User Actions
-      %ul#hover1.f-dropdown{"data-dropdown-content" => ""}
-        %li
-          %a{href: "#"} Insert something
-        %li
-          %a{href: "#"} Insert something
-        %li
-          %a{href: "#", class: "remove", data: {"user-id" => user.id, "user-email" => user.email, "cohort-id" => @cohort.id}} Remove the User
-      %br
+.row
+  .progress.large-12.round 
+    %span.meter{style:"width: #{(100 - (@cohort.end_date - Date.today)).to_i}%"}
+      Progress
 
-  .large-8.medium-4.columns
-    %h4
-      Assignments
+%br
+
+.large-4.medium-4.columns.admin_sidebar
+  %label.admin_sidebar_title
+    Ironyarders
+  %br
+  - @active_cohort_users.each do |user|
+    = link_to user.email, cohort_path(@cohort)
+    %span.button.tiny.secondary.round.dropdown{"data-dropdown" => "drop1", href: "#"} Actions
+    %br/
+    %ul#drop1.f-dropdown{"data-dropdown-content" => ""}
+      %li
+        %a{href: "#"} This is a link
+      %li
+        %a{href: "mailto:#{user.email}?subject=Message from IronBaseOne"} Email User
+      %li
+        %a{href: "#", class: "remove", data: {"user-id" => user.id, "user-email" => user.email, "cohort-id" => @cohort.id}} Remove the User
+
+.large-8.medium-8.columns.admin_main
+  %h4.large-12.medium-12.columns.admin_main_title
+    Cohort Assignments
+  .assignment_holder
     - @cohort.assignments.each do |assignment|
       = link_to assignment.name, assignment_path(assignment)
       = pretty_due_date(assignment.due_date)
       %br
 
-
-
-.progress.large-12.success.round 
-  - x = 
-  %span.meter{style:"width: #{(100 - (@cohort.end_date - Date.today)).to_i}%"}
 
 
 .add_user_modal

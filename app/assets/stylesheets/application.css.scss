@@ -20,3 +20,68 @@
   display: inline-block;
  }
 
+body,html{
+    height:100%;
+    width:100%;
+}
+.off-canvas-wrap,.inner-wrap{
+    height:100%;   
+}
+.page{
+    height:100%;   
+}
+
+ul.off-canvas-list li a {
+  border-bottom: none;
+}
+
+.tab-bar-section.middle {
+  left: 6.8125rem;
+}
+
+.left-small {
+  padding-left: 5px;
+  width: 10px;
+}
+
+.left-small a {
+  color: white;
+}
+
+.admin_sidebar {
+  background: #333333;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+  
+}
+
+.admin_sidebar_title {
+  background: #444444;
+  height: 50px;
+  color: #999991;
+  padding-top: 6px;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.admin_main_title {
+  height: 50px;
+  background: #333333;
+  padding: 0;
+  margin: 0;
+  color: white;
+  padding-top: 8px;
+  padding-left: 40px;
+}
+
+.admin_main {
+  height: 300px;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+}
+
+
+
+
