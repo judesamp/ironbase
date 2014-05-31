@@ -14,6 +14,7 @@ gem 'cancan'
 gem 'rolify'
 gem 'foundation-rails'
 gem 'haml-rails'
+gem 'rails_12factor'
 
 
 group :development, :test do
