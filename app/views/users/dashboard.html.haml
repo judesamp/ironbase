@@ -35,7 +35,7 @@
     Cohort Assignments
   .large-8.medium-8.columns.admin_main_title
     .progress.round.progress_padding
-      - if @cohort.nil?
+      - unless @cohort.nil?
         %span.meter{style:"width: #{(100 - (@cohort.end_date - Date.today)).to_i}%"}
           Your Ironyard Progress
       - else
