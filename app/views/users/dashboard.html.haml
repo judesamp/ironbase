@@ -35,6 +35,7 @@
     Cohort Assignments
   .large-8.medium-8.columns.admin_main_title
     .progress.round.progress_padding
+    - unless @cohort.nil?
       %span.meter{style:"width: #{(100 - (@cohort.end_date - Date.today)).to_i}%"}
         Cohort Progress
   .assignment_holder
@@ -45,12 +46,13 @@
           %th.description Description
           %th.due_date Due Date
           %th.status Status
-        - @cohort.assignments.each do |assignment|
-          %tr
-            %td= link_to assignment.name, assignment_path(assignment)
-            %td= assignment.description
-            %td= pretty_due_date(assignment.due_date)
-            %td Status!!!
+        -unless @cohort.nil?
+          - @cohort.assignments.each do |assignment|
+            %tr
+              %td= link_to assignment.name, assignment_path(assignment)
+              %td= assignment.description
+              %td= pretty_due_date(assignment.due_date)
+              %td Status!!!
 
       
       
