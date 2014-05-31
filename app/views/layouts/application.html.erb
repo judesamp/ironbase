@@ -32,6 +32,9 @@
             <a class="button" href="<%= ironyard_dashboard_users_path %>">Ironyard Dashboard</a>
           <% else %>
             <a class="button" href="<%= dashboard_users_path %>">Your Dashboard</a>
+            <% if current_user.cohorts.length > 0 %>
+              <a class="button" href="<%= dashboard_users_path %>">Cohort Dashboard</a>
+            <% end %>
           <% end %>
 
           <%= link_to('Logout', destroy_user_session_path, :method => :delete, class: "button") %> 

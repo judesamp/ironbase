@@ -10,6 +10,8 @@ class UsersController < ApplicationController
     email = @user.email.downcase
     hash = Digest::MD5.hexdigest(email)
     @image_source = "http://www.gravatar.com/avatar/#{hash}"
+    #query this in a different way later
+    @cohort = @user.cohorts.first
   end
 
   def ironyard_dashboard

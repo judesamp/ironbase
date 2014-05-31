@@ -1,21 +1,53 @@
-.row
-  .large-8.medium-8.columns
+.row.user_top
+  .large-6.medium-6.columns
     = image_tag @image_source
     - if @user.first_name.present?
       = @user.first_name
       = @user.last_name
     - else
-      = @user.email
+      %h4.inline_title
+        = @user.email
     %a{"data-dropdown" => "hover1", "data-options" => "align:right; is_hover:true;", href: "#"} 
-      User Actions
+      Actions
       %ul#hover1.f-dropdown{"data-dropdown-content" => ""}
         %li
-          %a{href: "#", class: "add a name"} Add a Name
+          %a{href: "#", class: "add_name"} Add a Name
         %li
           %a{href: "#", class: "edit_settings"} Edit Settings
         %li
+          %a{href: "#", class: "email_instructor"} Email Instructor
+        %li
           %a{href: "#", class: "edit_info", data: {"user-id" => @user.id, "user-email" => @user.email}} 
             Edit Info
-  .large-4.medium-4.columns
-    .span.button
-      Cohort Dashboard
+
+  .large-6.medium-6.columns
+    %h3.inline_title.user_cohort_name= pretty_cohort_name(@cohort)
+%br
+
+
+
+.large-12.medium-12.columns.admin_main
+  %h4.large-4.medium-4.columns.admin_main_title.inline_title
+    Cohort Assignments
+  .large-8.medium-8.columns.admin_main_title
+    .progress.round.progress_padding
+      %span.meter{style:"width: #{(100 - (@cohort.end_date - Date.today)).to_i}%"}
+        Cohort Progress
+  .assignment_holder
+    %table.assignment_table
+      %thead
+        %tr
+          %th.name Name
+          %th.description Description
+          %th.due_date Due Date
+          %th.status Status
+        - @cohort.assignments.each do |assignment|
+          %tr
+            %td= link_to assignment.name, assignment_path(assignment)
+            %td= assignment.description
+            %td= pretty_due_date(assignment.due_date)
+            %td Status!!!
+
+      
+      
+      %br
