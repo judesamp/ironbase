@@ -38,10 +38,10 @@
       - else
         .span.button.tiny.round.assignment_button
           Edit Your Submission
-
-      .span.button.tiny.round.secondary
-        .color
-          - unless @submission.nil?
+      
+      - unless @submission.nil?
+        .span.button.tiny.round.secondary
+          .color
             = link_to "View Your Submission", submission_path(@submission.id)
   .row
     .large-6.medium-6.large-centered.medium-centered.assignment_holder.panel.columns.assignment_box.callout
