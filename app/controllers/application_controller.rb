@@ -39,16 +39,15 @@ class ApplicationController < ActionController::Base
     user.cohorts.first 
   end
 
-  def grab_gravatar
+  def grab_gravatar(user = current_user)
     #store in db?
-    @user = current_user
-    email = @user.email.downcase
+    email = user.email.downcase
     hash = Digest::MD5.hexdigest(email)
     "http://www.gravatar.com/avatar/#{hash}"
   end
 
   def pretty_workflow_state(string)
-    string.gsub!(/_/, ' ').capitalize
+    string.gsub(/_/, ' ').capitalize
   end
 
 end

@@ -12,10 +12,9 @@ class AssignmentsController < ApplicationController
 
   def show
     @assignment = Assignment.find(params[:id])
+    @comments = @assignment.comments
     submissions = @assignment.submissions.where(:user_id => current_user.id)
     @submission = submissions.first
-    puts "WE are HERE!!!!!!!!!!"
-    puts @submission.inspect
   end
 
   private

@@ -33,6 +33,14 @@ $ ->
       error: ->
         alert("There was a problem removing this user. Please try again.")
 
+  $(document).on 'click', '.more_description', ->
+    $('.truncated_description').slideToggle('fast');
+    $('.hidden_description').slideToggle('fast');
+
+  $(document).on 'click', '.more_submission', ->
+    $('.truncated_content').slideToggle('fast');
+    $('.hidden_content').slideToggle('fast');
+
 
 
     

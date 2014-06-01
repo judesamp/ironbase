@@ -1,1 +1,107 @@
-show
+.row.user_top
+  .large-6.medium-6.columns
+    = image_tag grab_gravatar
+    - if @user.first_name.present?
+      = @user.first_name
+      = @user.last_name
+    - else
+      %h4.inline_title
+        = @user.email
+    %a{"data-dropdown" => "hover1", "data-options" => "align:right; is_hover:true;", href: "#"} 
+      Actions
+      %ul#hover1.f-dropdown{"data-dropdown-content" => ""}
+        %li
+          %a{href: "#", class: "add_name"} Add a Name
+        %li
+          %a{href: "#", class: "edit_settings"} Edit Settings
+        %li
+          %a{href: "#", class: "email_instructor"} Email Instructor
+        %li
+          %a{href: "#", class: "edit_info", data: {"user-id" => @user.id, "user-email" => @user.email}} 
+            Edit Info
+
+  .large-6.medium-6.columns
+    - if @cohort.nil?
+      %h3.inline_title.user_cohort_name
+        Join a Cohort!
+    -else
+      %h3.inline_title.user_cohort_name= pretty_cohort_name(@cohort)
+%br
+
+.large-12.medium-12.columns.admin_main
+  %h5.large-8.medium-8.columns.admin_main_title.inline_title
+    Your submission for: 
+    = @assignment.name
+    = "(Due: #{@assignment.due_date})"
+  .large-4.medium-4.columns.admin_main_title
+    .span.button.success.medium.round.status_alert
+      Submission Status:
+      = pretty_workflow_state(@submission.workflow_state)
+      
+  .submission_holder
+
+    .row
+      .large-8.medium-8.large-centered.medium-centered.panel.columns.assignment_panel
+        %h4.inline_title
+          The Assignment
+        .span.button.tiny.round.success
+          View Assignment Page
+        %br
+        .truncated_description
+          = truncate(@assignment.description, :length => 200)
+          = "..."
+          %a.more_description
+            view more
+        .hidden_description
+          @assignment.description
+          %a.more_description
+            hide
+
+
+    
+    .row
+      .large-8.medium-8.large-centered.medium-centered.panel.columns.submission_panel
+        %h4.inline_title
+          Your Submission
+        .span.button.tiny.round.success
+          Edit Submission
+        %br
+        .truncated_content
+          = truncate(@submission.content, :length => 200)
+          = "..."
+          %a.more_submission
+            view more
+        .hidden_content
+          @submission.content
+          %a.more_submission
+            hide
+
+.row
+  %section.comments
+    .comment_form
+      %h4 Comments
+      = form_for Comment.new do |f|
+        = f.hidden_field :commentable_id, :value => @submission.id
+        = f.hidden_field :commentable_type, :value => "Submission"
+        = f.hidden_field :user_id, :value => current_user.id
+        = render 'comments/form', f: f
+    %br
+    %br
+
+
+    - @comments.each do |comment|
+      %article.comment
+        %a.comment-img{href: "#non"}
+          = image_tag grab_gravatar(comment.user), class: 'grav'
+        .comment-body
+          .text
+            %p= comment.content
+          %p.attribution
+            by
+            %a{href: "#non"}= comment.user.first_name ||= comment.user.email
+            at
+            = comment.created_at 
+
+
+
+

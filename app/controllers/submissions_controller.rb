@@ -23,6 +23,10 @@ class SubmissionsController < ApplicationController
 
   def show
     @submission =  Submission.find(params[:id])
+    @comments = @submission.comments
+    @user = current_user
+    @cohort = current_cohort(@user)
+    @assignment = Assignment.find(@submission.assignment_id)
   end
 
   private

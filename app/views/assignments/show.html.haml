@@ -45,17 +45,49 @@
             = link_to "View Your Submission", submission_path(@submission.id)
   .row
     .large-6.medium-6.large-centered.medium-centered.assignment_holder.panel.columns.assignment_box.callout
+      - unless @submission.nil?
+        = link_to "Your Submission's", submission_path(@submission.id)
       Current Status:
-      - if @submission.nil?
+      - if @submission.nil? || @submission.workflow_state.nil?
         Not Yet Submitted
       - else
         = pretty_workflow_state(@submission.workflow_state)
+
   .row
     .large-6.medium-6.large-centered.medium-centered.panel.columns
       %h4.assignment_description_title
         Assignment Description
       %br
       = @assignment.description
+
+.row
+  %section.comments
+    .comment_form
+      %h4 Comments
+      = form_for Comment.new do |f|
+        = f.hidden_field :commentable_id, :value => @assignment.id
+        = f.hidden_field :commentable_type, :value => "Assignment"
+        = f.hidden_field :user_id, :value => current_user.id
+        = render 'comments/form', f: f
+    %br
+    %br
+
+
+    - @comments.each do |comment|
+      %article.comment
+        %a.comment-img{href: "#non"}
+          = image_tag grab_gravatar(comment.user), class: 'grav'
+        .comment-body
+          .text
+            %p= comment.content
+          %p.attribution
+            by
+            %a{href: "#non"}= comment.user.first_name ||= comment.user.email
+            at
+            = comment.created_at 
+
+  
+​
 
 - if current_user.has_role? :admin
   .edit_assignment_modal
