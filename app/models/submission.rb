@@ -6,6 +6,10 @@ class Submission < ActiveRecord::Base
   has_many :comments, as: :commentable
   has_many :links, as: :linkable
 
+  accepts_nested_attributes_for :comments, :reject_if => :all_blank
+
+  validates_uniqueness_of :assignment_id, :scope => [:user_id]
+
   workflow do
     state :new do
       event :submit, :transitions_to => :awaiting_review
@@ -22,5 +26,4 @@ class Submission < ActiveRecord::Base
     end
     state :complete
   end
-
 end

@@ -9,5 +9,5 @@
 = f.label :course
 = f.select :course_id, options_for_select(Course.all.collect {|l| [ l.name, l.id ] })
 = f.label :location
-= f.select :location_id, options_for_select(Location.all.collect {|l| [ l.name, l.id ] }, @location.id)
+= f.select :location_id, options_for_select(Location.all.collect {|l| [ l.name, l.id ] }, location.id)
 = f.submit

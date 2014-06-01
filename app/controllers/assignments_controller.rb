@@ -17,6 +17,11 @@ class AssignmentsController < ApplicationController
     @submission = submissions.first
   end
 
+  def submissions
+    @assignment = Assignment.find(params[:id])
+    @submissions = @assignment.submissions
+  end
+
   private
   def assignment_params
     params.require(:assignment).permit(:name, :description, :due_date, :cohort_id)

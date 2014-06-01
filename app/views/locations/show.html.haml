@@ -1,5 +1,5 @@
-%h1= @location.name
-%span.button
+%h1.inline_title= @location.name
+%span.button.create_cohort_button
   Create New Cohort
 
 %table
@@ -10,20 +10,19 @@
         %td= cohort.start_date
         %td= cohort.end_date
         %td
-          .span.button
-            View Cohort
+          = link_to "Cohort Dashboard", cohort_path(cohort), class: "button"
         %td
-          .span.button
+          .span.button.edit_cohort_button
             Edit Cohort
 
-      .edit_cohort_modal
+      .edit_cohort_modal.hide.modal_custom
         %h1 Edit Cohort
         = form_for cohort do |f|
-          = render 'cohorts/form', f: f
+          = render 'cohorts/form', f: f, location: @location
 
 
-.new_cohort_modal
+.new_cohort_modal.hide.modal_custom
   %h1 Create a New Cohort
   = form_for Cohort.new do |f|
-    = render 'cohorts/form', f: f
+    = render 'cohorts/form', f: f, location: @location
 

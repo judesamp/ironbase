@@ -29,7 +29,7 @@
           <span>logged in as <%= current_user.email %></span>
           <% if current_user.has_role? :admin %>
             <a class="button" href="<%= cohort_dashboard_users_path %>">Cohort Dashboard</a>
-            <a class="button" href="<%= ironyard_dashboard_users_path %>">Ironyard Dashboard</a>
+            <a class="button" href="<%= ironyard_dashboard_users_path %>">Ironyard Global</a>
           <% else %>
             <a class="button" href="<%= dashboard_users_path %>">Your Dashboard</a>
             <% if current_user.cohorts.length > 0 %>
@@ -59,6 +59,8 @@
     <% end %>
 
     <%= yield %>
-    
+  
+
+    <div id="fade"></div>
   </body>
 </html>

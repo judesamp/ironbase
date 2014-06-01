@@ -1,6 +1,11 @@
 $('.ironyarders').fadeOut('slow', function() {
 
   $('.ironyarders').html("<%= escape_javascript render(:partial => 'cohorts/ironyarders', :locals => { :cohort_users => @active_cohort_users })%>");
+  
+  $('#fade').fadeOut();
+  
+
+  $('.add_user_modal').fadeOut();
 
 });
 

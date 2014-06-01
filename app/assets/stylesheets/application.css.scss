@@ -58,7 +58,7 @@ ul.off-canvas-list li a {
   background: #444444;
   height: 50px;
   color: #999991;
-  padding-top: 6px;
+  padding: 6px 0 0 0;
   font-size: 1.5em;
   text-align: center;
 }
@@ -246,4 +246,53 @@ p {
 
 .hidden_content {
   display: none;
+}
+
+.modal_custom {
+  display: none; 
+  position: absolute; 
+  left: 25%; 
+  top: 10%; 
+  padding: 25px; 
+  border: 2px solid black;
+  background-color: #ffffff;
+  width: 50%;
+  height: auto;
+  z-index: 100; 
+}
+
+#fade {
+  display: none;  
+  position: fixed; 
+  left: 0%; 
+  top: 0%;
+  background-color: black;
+  -moz-opacity: 0.7; 
+  opacity: .70;
+  filter: alpha(opacity=70);
+  width: 100%;
+  height: 100%;
+  z-index: 90;
+}
+
+.hide {
+  diplay:none;
+}
+
+.remove_padding {
+  margin: 0;
+  padding: 0;
+}
+
+.cohort_assignments {
+  margin-left: 10%;
+  width: 80%
+}
+
+.ironyarders_border {
+  border-right: 2px solid black;
+}
+
+.comments {
+  margin-top: 20px;
 }

@@ -7,7 +7,7 @@ class CommentMailer < ActionMailer::Base
     @comment = comment
     @submission = submission
 
-    mail(to: @receiver.email, subject: "#{@commenter.name} commented on your #{@submission.assignment.name} submission")
+    mail(to: @receiver.email, subject: "#{@commenter.email} commented on your #{@submission.assignment.name} submission")
   end
 
   def assignment_comment_email(commenter, cohort, assignment, comment)
@@ -17,7 +17,7 @@ class CommentMailer < ActionMailer::Base
     @assignment = assignment
     @cohort.users.each do |user|
       unless user == @commenter
-        mail(to: user.email, subject: "#{commenter} just commented on #{assignment.name}")
+        mail(to: user.email, subject: "#{commenter.email} just commented on #{assignment.name}")
       end
     end
   end

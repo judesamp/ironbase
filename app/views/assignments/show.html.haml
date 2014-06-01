@@ -29,29 +29,39 @@
     = @assignment.name
     = "(Due Date: #{@assignment.due_date})"
     - if current_user.has_role? :admin
-      .span.button.tiny.round.assignment_button
-        Edit This Assignment
+      .span.button.tiny.round.edit_assignment_button
+        Edit Assignment
+      = link_to "Assignment Submissions", submissions_assignment_path(@assignment), class: "button tiny round"
     -else
       - if @submission.nil?
-        .span.button.tiny.round.assignment_button
+        .span.button.tiny.round.submit_submission_button
           Submit Assignment
       - else
-        .span.button.tiny.round.assignment_button
+        .span.button.tiny.round.edit_submission_button
           Edit Your Submission
       
       - unless @submission.nil?
         .span.button.tiny.round.secondary
           .color
             = link_to "View Your Submission", submission_path(@submission.id)
-  .row
-    .large-6.medium-6.large-centered.medium-centered.assignment_holder.panel.columns.assignment_box.callout
-      - unless @submission.nil?
-        = link_to "Your Submission's", submission_path(@submission.id)
-      Current Status:
-      - if @submission.nil? || @submission.workflow_state.nil?
-        Not Yet Submitted
-      - else
-        = pretty_workflow_state(@submission.workflow_state)
+  
+  - if  current_user.has_role? :admin
+    .row
+      .large-6.medium-6.large-centered.medium-centered.assignment_holder.panel.columns.assignment_box.callout
+        Number Submitted:
+        = @assignment.submissions.count
+        %br
+        = link_to "View All Submissions", submissions_assignment_path(@assignment)
+  - else
+    .row
+      .large-6.medium-6.large-centered.medium-centered.assignment_holder.panel.columns.assignment_box.callout
+        - unless @submission.nil?
+          = link_to "Your Submission's", submission_path(@submission.id)
+        Current Status:
+        - if @submission.nil? || @submission.workflow_state.nil?
+          Not Yet Submitted
+        - else
+          = pretty_workflow_state(@submission.workflow_state)
 
   .row
     .large-6.medium-6.large-centered.medium-centered.panel.columns
@@ -90,18 +100,21 @@
 ​
 
 - if current_user.has_role? :admin
-  .edit_assignment_modal
+  .edit_assignment_modal.hide.modal_custom
+    %h1 Edit the Assignment
+    = form_for @assignment do |f|
+      = render 'assignments/form', f: f
 
 - else
-  .new_submission_modal
+  .submit_submission_modal.hide.modal_custom
     %h1 Submit your Assignment
     = form_for Submission.new do |f|
       = f.hidden_field :assignment_id, :value => @assignment.id
       = f.hidden_field :user_id, :value => current_user.id
       = render 'submissions/form', f: f
   - unless @submission.nil?
-    .edit_submission_modal
-      %h1 Edit your Assignment
+    .edit_submission_modal.hide.modal_custom
+      %h1 Edit Assignment Submission
       = form_for @submission, url: submission_path(@submission), method: :patch do |f|
         = render 'submissions/form', f: f
 

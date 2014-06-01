@@ -1,10 +1,9 @@
 %h4 Ironyard Dash
 
-
 .row
   .large-6.medium-6.columns
     %h4.inline_title Locations
-    %span.button
+    %span.button.location_modal_button
       Create New Location
     %br
     - unless @locations.nil?
@@ -14,7 +13,7 @@
 
   .large-6.medium-6.columns
     %h4.inline_title Courses
-    %span.button
+    %span.button.course_modal_button
       Create New Course
     %br
     - unless @courses.nil?
@@ -23,12 +22,12 @@
         %br
 %br
 .row
-  .new_location_modal
+  .new_location_modal.hide.modal_custom
     %h4 Create a New Location
     = form_for Location.new do |f|
       = render 'locations/form', f: f
 
-  .new_course_modal
+  .new_course_modal.hide.modal_custom
     %h1 Create a New Course
     = form_for Course.new do |f|
       = render 'courses/form', f: f

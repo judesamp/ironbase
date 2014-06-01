@@ -25,9 +25,19 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :submissions
+  resources :submissions do
+    member do
+      get 'review'
+      patch 'resubmit'
+    end
+  end
 
-  resources :comments
+  resources :comments do
+    collection do
+      patch 'accept'
+      patch 'reject'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

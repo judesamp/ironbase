@@ -41,6 +41,79 @@ $ ->
     $('.truncated_content').slideToggle('fast');
     $('.hidden_content').slideToggle('fast');
 
+  $(document).on 'click', '#fade', ->
+    $("#fade").hide();
+    $(".modal_custom").hide();
+
+  $(document).on 'click', '.close', ->
+    $("#fade").hide();
+    $(".modal_custom").hide();
+
+  $(document).on 'click', '.course_modal_button', ->
+    $('.new_course_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.location_modal_button', ->
+    $('.new_location_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.create_cohort_button', ->
+    $('.new_cohort_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.edit_cohort_button', ->
+    $('.edit_cohort_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.edit_cohort_button', ->
+    $('.new_cohort_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.add_user_button', ->
+    $('.add_user_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.create_assignment_button', ->
+    $('.new_assignment_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.edit_assignment_button', ->
+    $('.edit_assignment_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.submit_submission_button', ->
+    $('.submit_submission_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.edit_submission_button', ->
+    $('.edit_submission_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.reject_submission', ->
+    $('.reject_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.accept_submission', ->
+    $('.accept_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.edit_submission_button', ->
+    $('.edit_submission_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.resubmit_button', ->
+    $('.resubmit_submission_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.edit_assignment_button', ->
+    $('.edit_assignment_modal').fadeIn();
+    $('#fade').fadeIn();
+
+ 
 
 
-    
+
+  
+
+
+

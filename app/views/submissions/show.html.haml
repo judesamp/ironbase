@@ -44,8 +44,7 @@
       .large-8.medium-8.large-centered.medium-centered.panel.columns.assignment_panel
         %h4.inline_title
           The Assignment
-        .span.button.tiny.round.success
-          View Assignment Page
+        = link_to "View Assignment", assignment_path(@assignment), class: 'button tiny round'
         %br
         .truncated_description
           = truncate(@assignment.description, :length => 200)
@@ -63,9 +62,24 @@
       .large-8.medium-8.large-centered.medium-centered.panel.columns.submission_panel
         %h4.inline_title
           Your Submission
-        .span.button.tiny.round.success
-          Edit Submission
-        %br
+        - if current_user.has_role? :admin
+          - if @submission.workflow_state == "being_reviewed"
+            .span.button.tiny.round.success.accept_submission
+              Mark Submission as Complete
+            .span.button.tiny.round.success.reject_submission
+              Reject Submission as Incomplete
+          - elsif @submission.workflow_state == "awaiting_review"
+            = link_to "Review", review_submission_path(submission)
+          %br
+        - else
+          - if @submission.workflow_state == "incomplete"
+            .span.button.tiny.round.success.resubmit_button
+              Resubmit Your Homework
+          - else
+            .span.button.tiny.round.success.edit_submission_button
+              Edit Submission
+          %br
+          
         .truncated_content
           = truncate(@submission.content, :length => 200)
           = "..."
@@ -76,19 +90,9 @@
           %a.more_submission
             hide
 
-.row
+
+.row.spacer
   %section.comments
-    .comment_form
-      %h4 Comments
-      = form_for Comment.new do |f|
-        = f.hidden_field :commentable_id, :value => @submission.id
-        = f.hidden_field :commentable_type, :value => "Submission"
-        = f.hidden_field :user_id, :value => current_user.id
-        = render 'comments/form', f: f
-    %br
-    %br
-
-
     - @comments.each do |comment|
       %article.comment
         %a.comment-img{href: "#non"}
@@ -101,6 +105,52 @@
             %a{href: "#non"}= comment.user.first_name ||= comment.user.email
             at
             = comment.created_at 
+  .comment_form
+    %h4 Comments
+    = form_for Comment.new do |f|
+      = f.hidden_field :commentable_id, :value => @submission.id
+      = f.hidden_field :commentable_type, :value => "Submission"
+      = f.hidden_field :user_id, :value => current_user.id
+      = render 'comments/form', f: f
+  %br
+  %br
+
+.reject_modal.hide.modal_custom
+  .comment_form
+    %h4 Click 'Reject' to reject this submission. Add additional comment if you wish.
+    
+    = form_for Comment.new, url: reject_comments_path, method: :patch do |comment|
+      = comment.hidden_field :commentable_id, :value => @submission.id
+      = comment.hidden_field :commentable_type, :value => "Submission"
+      = comment.hidden_field :user_id, :value => current_user.id
+      = comment.label :content
+      = comment.text_area :content, value: "Still some work to do on this homework: #{@assignment.name}."
+      = comment.submit "Reject"
+
+
+.accept_modal.hide.modal_custom
+  .comment_form
+    %h4 Click 'Accept' to accept this submission. If you wish, add additional comment.
+    = form_for Comment.new, url: accept_comments_path, method: :patch do |comment|
+      = comment.hidden_field :commentable_id, :value => @submission.id
+      = comment.hidden_field :commentable_type, :value => "Submission"
+      = comment.hidden_field :user_id, :value => current_user.id
+      = comment.label :content
+      = comment.text_area :content, value: "Your submission for #{@assignment.name} has been accepted and marked as complete."
+      = comment.submit "Accept"
+
+.resubmit_submission_modal.hide.modal_custom
+  %h1 Resubmit your Assignment
+  = form_for @submission, url: resubmit_submission_path(@submission), method: :patch do |f|
+    = render 'submissions/form', f: f
+
+.edit_submission_modal.hide.modal_custom
+  %h1 Edit your Submission
+  = form_for @submission do |f|
+    = render 'submissions/form', f: f
+      
+
+      
 
 
 

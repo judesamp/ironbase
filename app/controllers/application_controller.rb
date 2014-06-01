@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  helper_method :enrollment_status_active?, :pretty_date, :pretty_cohort_name, :pretty_due_date, :current_cohort, :grab_gravatar, :pretty_workflow_state
+  helper_method :enrollment_status_active?, :pretty_date, :pretty_cohort_name, :pretty_due_date, :current_cohort, :grab_gravatar, :pretty_workflow_state, :user_submission
   
   def after_sign_in_path_for(resource)
     if resource.has_role? :admin
@@ -48,6 +48,10 @@ class ApplicationController < ActionController::Base
 
   def pretty_workflow_state(string)
     string.gsub(/_/, ' ').capitalize
+  end
+
+  def user_submission(user, assignment)
+    Submission.where("user_id = ? AND assignment_id = ?", user.id, assignment.id).first
   end
 
 end

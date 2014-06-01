@@ -1,58 +1,80 @@
 .row
-  .large-12.columns
+  .large-12.medium-12.columns
     %h3.inline_title= pretty_cohort_name(@cohort)
-    .span.button.tiny.round.alert
+    .span.button.tiny.round.alert.edit_cohort_button
       Edit Cohort
-    .span.button.tiny.round.alert
-      Add Existing User
-    .span.button.tiny.round.alert
-      Add New User
-    .span.button.tiny.round.alert
+    .span.button.tiny.round.alert.add_user_button
+      Add User
+    .span.button.tiny.round.alert.create_assignment_button
       Create a New Assignment
-
-.row
-  .progress.large-12.round 
-    %span.meter{style:"width: #{(100 - (@cohort.end_date - Date.today)).to_i}%"}
-      Progress
 
 %br
 
-.large-4.medium-4.columns.admin_sidebar
-  %label.admin_sidebar_title
+.large-4.medium-4.columns.remove_padding
+  %label.admin_sidebar_title.ironyarders_border
     Ironyarders
   %br
-  - @active_cohort_users.each do |user|
-    = link_to user.email, cohort_path(@cohort)
-    %span.button.tiny.secondary.round.dropdown{"data-dropdown" => "drop#{user.id}", href: "#"} Actions
-    %br/
-    %ul.f-dropdown{"data-dropdown-content" => "", id: "drop#{user.id}"}
-      %li
-        %a{href: "#"} This is a link
-      %li
-        %a{href: "mailto:#{user.email}?subject=Message from IronBaseOne"} Email User
-      %li
-        %a{href: "#", class: "remove", data: {"user-id" => user.id, "user-email" => user.email, "cohort-id" => @cohort.id}} Remove the User
+  %table
+    %thead
+      %tr
+        %td
+          Name
+        %td
+          Actions
+    %tbody.ironyarders
+      - @active_cohort_users.each do |user|
+        %tr
+          %td
+            = link_to user.email, cohort_path(@cohort)
+          %td
+            %span.button.tiny.secondary.round.dropdown{"data-dropdown" => "drop#{user.id}", href: "#"} Actions
+            %br/
+            %ul.f-dropdown{"data-dropdown-content" => "", id: "drop#{user.id}"}
+              %li
+                %a{href: "#"} This is a link
+              %li
+                %a{href: "mailto:#{user.email}?subject=Message from IronBaseOne"} Email User
+              %li
+                %a{href: "#", class: "remove", data: {"user-id" => user.id, "user-email" => user.email, "cohort-id" => @cohort.id}} Remove the User
 
-.large-8.medium-8.columns.admin_main
-  %h4.large-12.medium-12.columns.admin_main_title
+.large-8.medium-8.columns.remove_padding
+  %label.admin_sidebar_title
     Cohort Assignments
-  .assignment_holder
+  %br
+  %table.cohort_assignments
+    %thead
+      %td
+        Assignment
+      %td
+        Assigned On
+      %td
+        Due Date
+    %tbody
     - @cohort.assignments.each do |assignment|
-      = link_to assignment.name, assignment_path(assignment)
-      = pretty_due_date(assignment.due_date)
-      %br
+      %tr
+        %td
+          = link_to assignment.name, assignment_path(assignment)
+        %td
+          Assigned on date here
+        %td  
+          = pretty_due_date(assignment.due_date)
 
 
 
-.add_user_modal
+.add_user_modal.hide.modal_custom
   %h1 Add User to Cohort
   - User.all.each do |user|
     = user.email
     = check_box_tag user.id, enrollment_status_active?(@cohort, user), enrollment_status_active?(@cohort, user), data: {"cohort-id" => @cohort.id}
     %br
 
-.new_assignment_modal
+.new_assignment_modal.hide.modal_custom
   %h1 Create a New Assignment
   = form_for Assignment.new do |f|
     = f.hidden_field :cohort_id, :value => @cohort.id
     = render 'assignments/form', f: f
+
+.edit_cohort_modal.hide.modal_custom
+  %h1 Edit Cohort
+  = form_for @cohort do |f|
+    = render 'cohorts/form', f: f, location: @cohort.location
