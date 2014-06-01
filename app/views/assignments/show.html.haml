@@ -99,10 +99,10 @@
       = f.hidden_field :assignment_id, :value => @assignment.id
       = f.hidden_field :user_id, :value => current_user.id
       = render 'submissions/form', f: f
-  
-  .edit_submission_modal
-    %h1 Edit your Assignment
-    = form_for @submission, url: submission_path(@submission), method: :patch do |f|
-      = render 'submissions/form', f: f
+  - unless @submission.nil?
+    .edit_submission_modal
+      %h1 Edit your Assignment
+      = form_for @submission, url: submission_path(@submission), method: :patch do |f|
+        = render 'submissions/form', f: f
 
       
