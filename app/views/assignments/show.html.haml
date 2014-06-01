@@ -62,17 +62,6 @@
 
 .row
   %section.comments
-    .comment_form
-      %h4 Comments
-      = form_for Comment.new do |f|
-        = f.hidden_field :commentable_id, :value => @assignment.id
-        = f.hidden_field :commentable_type, :value => "Assignment"
-        = f.hidden_field :user_id, :value => current_user.id
-        = render 'comments/form', f: f
-    %br
-    %br
-
-
     - @comments.each do |comment|
       %article.comment
         %a.comment-img{href: "#non"}
@@ -85,6 +74,17 @@
             %a{href: "#non"}= comment.user.first_name ||= comment.user.email
             at
             = comment.created_at 
+            
+    .comment_form
+      %h4 Comments
+      = form_for Comment.new do |f|
+        = f.hidden_field :commentable_id, :value => @assignment.id
+        = f.hidden_field :commentable_type, :value => "Assignment"
+        = f.hidden_field :user_id, :value => current_user.id
+        = render 'comments/form', f: f
+    %br
+    %br
+
 
   
 ​
