@@ -21,7 +21,7 @@
             Edit Info
 
   .large-6.medium-6.columns
-    %h3.inline_title.user_cohort_name= pretty_cohort_name(current_cohort(current_user))
+    %h3.inline_title.user_cohort_name= pretty_cohort_name(@assignment.cohort)
 %br
 
 .large-12.medium-12.columns.admin_main
@@ -74,7 +74,7 @@
             %a{href: "#non"}= comment.user.first_name ||= comment.user.email
             at
             = comment.created_at 
-            
+
     .comment_form
       %h4 Comments
       = form_for Comment.new do |f|

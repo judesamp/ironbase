@@ -15,6 +15,15 @@ class CohortsController < ApplicationController
     puts @active_cohort_users.inspect
   end
 
+  def update
+    @cohort = Cohort.find(params[:id])
+    if @cohort.update(cohort_params)
+      redirect_to :back, notice: "Your cohort has been updated."
+    else
+      redirect_to :back, notice: "We were unable to update your cohort. Please try again."
+    end
+  end
+
   private
   def cohort_params
     params.require(:cohort).permit(:name, :subject, :start_date, :end_date, :course_id, :location_id, :instructor)

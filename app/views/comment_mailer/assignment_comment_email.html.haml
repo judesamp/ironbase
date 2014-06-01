@@ -1,0 +1,19 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1
+      New Comment on
+      = @assignment.name.capitalize
+  
+    %p
+      = @commenter.email
+      just made the following comment: 
+      %br/
+    %p
+      = @comment.content
+    %p 
+      Click
+      = link_to "here", assignment_path(@assignment)
+      to respond!

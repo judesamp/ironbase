@@ -1,0 +1,9 @@
+New Comment on <%= @assignment.name.capitalize %>
+
+========================================================
+
+<%= @commenter.email %> just made the following comment: 
+
+<%= @comment.content %>
+ 
+To Respond, follow this link: <%= assignment_path(@assignment)%>

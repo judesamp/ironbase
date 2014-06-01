@@ -19,7 +19,11 @@ Rails.application.routes.draw do
 
   resources :cohorts
 
-  resources :assignments
+  resources :assignments do
+    member do
+      get 'submissions'
+    end
+  end
 
   resources :submissions
 
