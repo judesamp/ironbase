@@ -42,20 +42,21 @@
         %th.status Status
         %th Review Submission
         - @assignment.cohort.users.each do |user|
-          %tr
-            %td= user.email
-            - if user_submission(user, @assignment).nil?
-              %td No
-              %td Not Submitted
-              %td Not Submitted
-              %td Not Submitted
-            - else
-              - submission = user_submission(user, @assignment)
-              %td Yes
-              %td= submission.created_at
-              %td= submission.workflow_state
-              %td
-                = link_to "Review", review_submission_path(submission)
+          - unless user.has_role? :admin
+            %tr
+              %td= user.email
+              - if user_submission(user, @assignment).nil?
+                %td No
+                %td Not Submitted
+                %td Not Submitted
+                %td Not Submitted
+              - else
+                - submission = user_submission(user, @assignment)
+                %td Yes
+                %td= submission.created_at
+                %td= submission.workflow_state
+                %td
+                  = link_to "Review", review_submission_path(submission)
 
 
 - if current_user.has_role? :admin

@@ -54,7 +54,7 @@ class CommentsController < ApplicationController
       if commenter.has_role? :admin
         receiver = User.find(submission.user_id)
       else
-        receiver = User.find(6)
+        receiver = User.find(1) #add instructor to cohort; send to all instructors; receiver turns into cohort.instructors; loop through on other side
       end
       CommentMailer.submission_comment_email(commenter, receiver, submission, comment).deliver
 
