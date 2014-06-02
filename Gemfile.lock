@@ -30,7 +30,7 @@ GEM
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
     builder (3.2.2)
-    cancan (1.6.10)
+    cancancan (1.8.1)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     celluloid-io (0.15.0)
@@ -203,7 +203,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  cancan
+  cancancan (~> 1.8)
   coffee-rails (~> 4.0.0)
   devise
   factory_girl_rails

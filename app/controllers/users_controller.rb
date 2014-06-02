@@ -1,6 +1,7 @@
 require 'digest/md5'
 
 class UsersController < ApplicationController
+  authorize_resource
   before_action :authenticate_user!
   before_filter :ensure_admin, only: [:course_dashboard, :cohort_dashboard]
 

@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, notice: "Access denied"
+  end
   protect_from_forgery with: :exception
   helper_method :enrollment_status_active?, :pretty_date, :pretty_cohort_name, :pretty_due_date, :current_cohort, :grab_gravatar, :pretty_workflow_state, :user_submission
   

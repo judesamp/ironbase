@@ -6,7 +6,7 @@
   %tbody
     - @location.cohorts.each do |cohort|
       %tr
-        %td= link_to cohort.name, cohort_path(cohort)
+        %td= link_to pretty_cohort_name(cohort), cohort_path(cohort)
         %td= cohort.start_date
         %td= cohort.end_date
         %td

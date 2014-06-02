@@ -1,4 +1,6 @@
 class SubmissionsController < ApplicationController
+  before_action :authenticate_user!
+  authorize_resource
 
   def create
     @submission = Submission.new(submission_params)
@@ -41,26 +43,27 @@ class SubmissionsController < ApplicationController
     end
   end
 
-  def review
-    @submission =  Submission.find(params[:id])
-    if @submission.workflow_state == "awaiting_review"
-      @submission.review!
-    end
-    redirect_to @submission
-  end
+  # code not working but should be here; resides in comments for now.
+  # def review
+  #   @submission =  Submission.find(params[:id])
+  #   if @submission.workflow_state == "awaiting_review"
+  #     @submission.review!
+  #   end
+  #   redirect_to @submission
+  # end
 
-  def accept
-    @submission = Submission.find(params[:id])
-    if @submission.workflow_state == 'being_reviewed'
-      @submission.accept!
-    end
-    @comment = @submission.commentable.build(params[:comments])
-    if @comment.save
-      redirect_to :back
-    else
-      redirect_to :back
-    end
-  end
+  # def accept
+  #   @submission = Submission.find(params[:id])
+  #   if @submission.workflow_state == 'being_reviewed'
+  #     @submission.accept!
+  #   end
+  #   @comment = @submission.commentable.build(params[:comments])
+  #   if @comment.save
+  #     redirect_to :back
+  #   else
+  #     redirect_to :back
+  #   end
+  # end
 
   def reject
     @submission = @submission.find(params[:id])

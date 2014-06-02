@@ -1,4 +1,6 @@
 class CoursesController < ApplicationController
+  before_action :authenticate_user!
+  authorize_resource
 
   def create
     @course = Course.new(course_params)

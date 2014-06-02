@@ -1,4 +1,6 @@
 class LocationsController < ApplicationController
+  before_action :authenticate_user!
+  authorize_resource
 
   def create
     @location = Location.new(location_params)

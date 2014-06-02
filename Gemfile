@@ -10,7 +10,7 @@ gem 'turbolinks'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'devise'
-gem 'cancan'
+gem 'cancancan', '~> 1.8'
 gem 'rolify'
 gem 'foundation-rails'
 gem 'haml-rails'
