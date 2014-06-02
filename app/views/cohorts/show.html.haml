@@ -1,12 +1,14 @@
 .row
   .large-12.medium-12.columns
     %h3.inline_title= pretty_cohort_name(@cohort)
+    .span.button.tiny.round.alert.create_assignment_button
+      Create Assignment
     .span.button.tiny.round.alert.edit_cohort_button
       Edit Cohort
     .span.button.tiny.round.alert.add_user_button
       Add User
-    .span.button.tiny.round.alert.create_assignment_button
-      Create a New Assignment
+    .span.button.tiny.round.alert.create_admin_button
+      Create Admin
 
 %br
 
@@ -63,10 +65,23 @@
 
 .add_user_modal.hide.modal_custom
   %h1 Add User to Cohort
-  - User.all.each do |user|
-    = user.email
-    = check_box_tag user.id, enrollment_status_active?(@cohort, user), enrollment_status_active?(@cohort, user), data: {"cohort-id" => @cohort.id}
-    %br
+  %table.wide_table
+    %thead
+      %td
+        User
+      %td
+        Add?
+    %tbody
+    - User.all.each do |user|
+      - unless enrollment_status_active?(@cohort, user)
+        %tr
+          %td
+            = user.email
+          %td
+            %span.add_to_cohort_button.button.tiny.round{ data: {"cohort-id" => @cohort.id, "user-id" => user.id, "data-no-turbolink" => "true"}}
+              Add User to Cohort
+            
+      %br
 
 .new_assignment_modal.hide.modal_custom
   %h1 Create a New Assignment
@@ -78,3 +93,24 @@
   %h1 Edit Cohort
   = form_for @cohort do |f|
     = render 'cohorts/form', f: f, location: @cohort.location
+
+.create_admin_modal.hide.modal_custom
+  %h1 Make User Admin
+  %table.wide_table
+    %thead
+      %td
+        User
+      %td
+        Make Admin?
+    %tbody
+      - User.all.each do |user|
+        - unless user.has_role? :admin
+          %tr
+            %td
+              = user.email
+            %td
+              = check_box_tag user.id, user.has_role?(:admin), user.has_role?(:admin), data: {"user-id" => user.id}, class: 'admin_checkbox'
+      %br
+
+.admin_message.modal_custom
+  User successfull promoted to admin!

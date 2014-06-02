@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get 'cohort_dashboard'
       patch 'add_user_to_cohort' => 'users#add_user_to_cohort'
       patch 'remove_user_from_cohort' => 'users#remove_user_from_cohort'
+      patch 'make_admin' => 'users#make_admin'
  
   end
 

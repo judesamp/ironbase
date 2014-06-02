@@ -1,28 +1,45 @@
-%h1.inline_title= @location.name
-%span.button.create_cohort_button
-  Create New Cohort
+%br
+.large-11.medium-11.columns.large-centered.medium-centered
+  %h2.inline_title= @location.name
+  %span.button.create_cohort_button.tiny.round
+    Create New Cohort
 
-%table
-  %tbody
-    - @location.cohorts.each do |cohort|
+  %table
+    %thead
       %tr
-        %td= link_to pretty_cohort_name(cohort), cohort_path(cohort)
-        %td= cohort.start_date
-        %td= cohort.end_date
         %td
-          = link_to "Cohort Dashboard", cohort_path(cohort), class: "button"
+          Cohort
         %td
-          .span.button.edit_cohort_button
-            Edit Cohort
+          Start_Date
+        %td
+          End Date
+        %td
+          Dashboard
+        %td
+          Edit
 
-      .edit_cohort_modal.hide.modal_custom
-        %h1 Edit Cohort
-        = form_for cohort do |f|
-          = render 'cohorts/form', f: f, location: @location
+    %tbody
+      - @location.cohorts.each do |cohort|
+        %tr
+          %td
+            %h5
+              = link_to pretty_cohort_name(cohort), cohort_path(cohort)
+          %td= cohort.start_date
+          %td= cohort.end_date
+          %td
+            = link_to "Cohort Dashboard", cohort_path(cohort), class: "button tiny round"
+          %td
+            .span.button.edit_cohort_button.tiny.round
+              Edit Cohort
+
+        .edit_cohort_modal.hide.modal_custom
+          %h1 Edit Cohort
+          = form_for cohort do |f|
+            = render 'cohorts/form', f: f, location: @location
 
 
-.new_cohort_modal.hide.modal_custom
-  %h1 Create a New Cohort
-  = form_for Cohort.new do |f|
-    = render 'cohorts/form', f: f, location: @location
+  .new_cohort_modal.hide.modal_custom
+    %h1 Create a New Cohort
+    = form_for Cohort.new do |f|
+      = render 'cohorts/form', f: f, location: @location
 

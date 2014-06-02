@@ -22,9 +22,11 @@ class UsersController < ApplicationController
   def add_user_to_cohort
     user = User.find(params[:users][:user_id])
     @cohort = Cohort.find(params[:users][:cohort_id])
-    enrollment_relation = Enrollment.where("cohort_id = ? AND user_id = ?", params[:users][:cohort_id], params[:users][:user_id])
+    puts user.inspect
+    puts @cohort.inspect
+    enrollment_relation = Enrollment.where("cohort_id = ? AND user_id = ?", @cohort.id, user.id)
+    puts enrollment_relation.inspect
     enrollment = enrollment_relation.first
-
     if @cohort.users.include? user
       if enrollment.status == "active"
         respond_to do |format|

@@ -1,33 +1,35 @@
-%h4 Ironyard Dash
-
-.row
-  .large-6.medium-6.columns
-    %h4.inline_title Locations
-    %span.button.location_modal_button
-      Create New Location
-    %br
-    - unless @locations.nil?
-      - @locations.each do |location|
-        = link_to location.name, location_path(location)
-        %br
-
-  .large-6.medium-6.columns
-    %h4.inline_title Courses
-    %span.button.course_modal_button
-      Create New Course
-    %br
-    - unless @courses.nil?
-      - @courses.each do |course|
-        = link_to course.name, course_path(course)
-        %br
 %br
-.row
-  .new_location_modal.hide.modal_custom
-    %h4 Create a New Location
-    = form_for Location.new do |f|
-      = render 'locations/form', f: f
+.large-11.medium-11.columns.large-centered.medium-centered
+  %h2 Ironyard Global
 
-  .new_course_modal.hide.modal_custom
-    %h1 Create a New Course
-    = form_for Course.new do |f|
-      = render 'courses/form', f: f
+  .row
+    .large-6.medium-6.columns
+      %h3.inline_title Locations
+      %span.button.location_modal_button.tiny.round
+        Create New Location
+      %br
+      - unless @locations.nil?
+        - @locations.each do |location|
+          %h3
+            = link_to location.name, location_path(location)
+
+    .large-6.medium-6.columns
+      %h3.inline_title Courses
+      %span.button.course_modal_button.tiny.round
+        Create New Course
+      %br
+      - unless @courses.nil?
+        - @courses.each do |course|
+          %h3
+            = link_to course.name, course_path(course)
+  %br
+  .row
+    .new_location_modal.hide.modal_custom
+      %h4 Create a New Location
+      = form_for Location.new do |f|
+        = render 'locations/form', f: f
+
+    .new_course_modal.hide.modal_custom
+      %h1 Create a New Course
+      = form_for Course.new do |f|
+        = render 'courses/form', f: f

@@ -3,17 +3,30 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  $(document).on 'click', ':checkbox', ->
-    user_id = $(this).attr('id');
-    cohort_id = $(this).attr('data-cohort-id');
-    $.ajax '/users/add_user_to_cohort',
+
+  $(document).on 'click', '.add_to_cohort_button', (e) ->
+      user_id = $(this).attr('data-user-id');
+      cohort_id = $(this).attr('data-cohort-id');
+      $.ajax '/users/add_user_to_cohort',
+        type: 'PATCH',
+        data: { "users": { "cohort_id": cohort_id, "user_id": user_id }}
+        
+        success: (data, textStatus, jqXHR) -> 
+          if data == '0'
+            alert("You cannot remove ironyarders from a cohort this way. Click the 'remove' button to start this process")
+            document.getElementById(user_id).checked = true;
+          else
+            console.log('success');
+
+  $(document).on 'click', '.admin_checkbox', ->
+    user_id = $(this).attr('data-user-id');
+    $.ajax '/users/make_admin',
       type: 'PATCH',
-      data: { "users": { "cohort_id": cohort_id, "user_id": user_id }}
+      data: { "users": { "user_id": user_id }}
       
       success: (data, textStatus, jqXHR) -> 
         if data == '0'
-          alert("You cannot remove ironyarders from a cohort this way. Click the 'remove' button to start this process")
-          document.getElementById(user_id).checked = true;
+          alert("Something went wrong. We were unable to promote the user to admin.")
         else
           console.log('success');
   
@@ -107,6 +120,10 @@ $ ->
 
   $(document).on 'click', '.edit_assignment_button', ->
     $('.edit_assignment_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.create_admin_button', ->
+    $('.create_admin_modal').fadeIn();
     $('#fade').fadeIn();
 
  

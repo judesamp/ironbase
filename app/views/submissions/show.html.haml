@@ -93,7 +93,7 @@
 
 .row.spacer
   %section.comments
-    - @comments.each do |comment|
+    - @comments.reverse.each do |comment|
       %article.comment
         %a.comment-img{href: "#non"}
           = image_tag grab_gravatar(comment.user), class: 'grav'
