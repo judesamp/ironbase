@@ -4,7 +4,7 @@
 
 $ ->
 
-  $(document).on 'click', '.add_to_cohort_button', (e) ->
+  $(document).on 'click', '.cohort_checkbox', (e) ->
       user_id = $(this).attr('data-user-id');
       cohort_id = $(this).attr('data-cohort-id');
       $.ajax '/users/add_user_to_cohort',

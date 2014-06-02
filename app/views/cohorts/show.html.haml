@@ -1,14 +1,15 @@
 .row
   .large-12.medium-12.columns
     %h3.inline_title= pretty_cohort_name(@cohort)
-    .span.button.tiny.round.alert.create_assignment_button
-      Create Assignment
-    .span.button.tiny.round.alert.edit_cohort_button
-      Edit Cohort
-    .span.button.tiny.round.alert.add_user_button
-      Add User
-    .span.button.tiny.round.alert.create_admin_button
-      Create Admin
+    - if current_user.has_role? :admin
+      .span.button.tiny.round.alert.create_assignment_button
+        Create Assignment
+      .span.button.tiny.round.alert.edit_cohort_button
+        Edit Cohort
+      .span.button.tiny.round.alert.add_user_button
+        Add User
+      .span.button.tiny.round.alert.create_admin_button
+        Create Admin
 
 %br
 
@@ -21,23 +22,26 @@
       %tr
         %td
           Name
-        %td
-          Actions
+        - if current_user.has_role? :admin  
+          %td
+            Actions
     %tbody.ironyarders
       - @active_cohort_users.each do |user|
-        %tr
-          %td
-            = link_to user.email, cohort_path(@cohort)
-          %td
-            %span.button.tiny.secondary.round.dropdown{"data-dropdown" => "drop#{user.id}", href: "#"} Actions
-            %br/
-            %ul.f-dropdown{"data-dropdown-content" => "", id: "drop#{user.id}"}
-              %li
-                %a{href: "#"} This is a link
-              %li
-                %a{href: "mailto:#{user.email}?subject=Message from IronBaseOne"} Email User
-              %li
-                %a{href: "#", class: "remove", data: {"user-id" => user.id, "user-email" => user.email, "cohort-id" => @cohort.id}} Remove the User
+        - unless user.has_role? :admin
+          %tr
+            %td
+              = link_to user.email, cohort_path(@cohort)
+            - if current_user.has_role? :admin 
+              %td
+                %span.button.tiny.secondary.round.dropdown{"data-dropdown" => "drop#{user.id}", href: "#"} Actions
+                %br/
+                %ul.f-dropdown{"data-dropdown-content" => "", id: "drop#{user.id}"}
+                  %li
+                    %a{href: "#"} This is a link
+                  %li
+                    %a{href: "mailto:#{user.email}?subject=Message from IronBaseOne"} Email User
+                  %li
+                    %a{href: "#", class: "remove", data: {"user-id" => user.id, "user-email" => user.email, "cohort-id" => @cohort.id}} Remove the User
 
 .large-8.medium-8.columns.remove_padding
   %label.admin_sidebar_title
@@ -78,9 +82,7 @@
           %td
             = user.email
           %td
-            %span.add_to_cohort_button.button.tiny.round{ data: {"cohort-id" => @cohort.id, "user-id" => user.id, "data-no-turbolink" => "true"}}
-              Add User to Cohort
-            
+            = check_box_tag user.id, enrollment_status_active?(@cohort, user), enrollment_status_active?(@cohort, user), data: {"cohort-id" => @cohort.id, "user-id" => user.id}, class: "cohort_checkbox"
       %br
 
 .new_assignment_modal.hide.modal_custom

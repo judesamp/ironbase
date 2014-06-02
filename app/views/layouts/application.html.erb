@@ -28,12 +28,14 @@
         <% if user_signed_in? %>
           <span>logged in as <%= current_user.email %></span>
           <% if current_user.has_role? :admin %>
-            <a class="button" href="<%= cohort_dashboard_users_path %>">Cohort Dashboard</a>
+            <% if current_user.cohorts.length > 0 %>
+              <a class="button" href="<%= cohort_path(current_user.cohorts.first.id) %>">Cohort Dashboard</a>
+            <% end %>
             <a class="button" href="<%= ironyard_dashboard_users_path %>">Ironyard Global</a>
           <% else %>
             <a class="button" href="<%= dashboard_users_path %>">Your Dashboard</a>
             <% if current_user.cohorts.length > 0 %>
-              <a class="button" href="<%= dashboard_users_path %>">Cohort Dashboard</a>
+              <a class="button" href="<%= cohort_path(current_user.cohorts.first.id) %>">Cohort Dashboard</a>
             <% end %>
           <% end %>
 

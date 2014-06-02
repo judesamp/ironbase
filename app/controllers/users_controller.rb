@@ -36,12 +36,14 @@ class UsersController < ApplicationController
         enrollment.status = "active"
         enrollment.save
         @active_cohort_users = @cohort.users.joins(:enrollments).where("enrollments.status" => "active")
+        puts @active_cohort_users.inspect
         respond_to do |format|
           format.js
         end
       end
     else
-      @cohort.users << user
+
+      @cohort.users << user unless @cohort.users.include?(user)
       @active_cohort_users = @cohort.users.joins(:enrollments).where("enrollments.status" => "active")
 
       respond_to do |format|

@@ -13,6 +13,7 @@ class Ability
       else
         can :show, Assignment
         can :show, Cohort
+        can :dashboard, User
         can :show, Submission, :user_id => user.id
        
         can :create, Comment
