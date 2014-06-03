@@ -25,9 +25,8 @@
 %br
 
 .large-12.medium-12.columns.admin_main
-  %h4.large-12.medium-12.columns.admin_main_title
-    = @assignment.name
-    = "(Due Date: #{@assignment.due_date})"
+  %h4.admin_main_title
+    Assignment Discussion Board
     - if current_user.has_role? :admin
       .span.button.tiny.round.edit_assignment_button
         Edit Assignment
@@ -44,17 +43,16 @@
         .span.button.tiny.round.secondary
           .color
             = link_to "View Your Submission", submission_path(@submission.id)
-  
-  - if  current_user.has_role? :admin
-    .row
-      .large-6.medium-6.large-centered.medium-centered.assignment_holder.panel.columns.assignment_box.callout
-        Number Submitted:
-        = @assignment.submissions.count
+  .row
+    - if  current_user.has_role? :admin
+      .large-3.medium-3.columns
+        %h4
+          Number Submitted:
+          = @assignment.submissions.count
         %br
         = link_to "View All Submissions", submissions_assignment_path(@assignment)
-  - else
-    .row
-      .large-6.medium-6.large-centered.medium-centered.assignment_holder.panel.columns.assignment_box.callout
+    - else
+      .large-3.medium-3.columns
         - unless @submission.nil?
           = link_to "Your Submission's", submission_path(@submission.id)
         Current Status:
@@ -63,12 +61,12 @@
         - else
           = pretty_workflow_state(@submission.workflow_state)
 
-  .row
-    .large-6.medium-6.large-centered.medium-centered.panel.columns
-      %h4.assignment_description_title
-        Assignment Description
-      %br
-      = @assignment.description
+  
+    %h4
+      = @assignment.name
+      = "(Due Date: #{@assignment.due_date})"
+    %br
+    = @assignment.description
 
 .row
   %section.comments

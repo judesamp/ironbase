@@ -56,8 +56,6 @@ class UsersController < ApplicationController
     @cohort = Cohort.find(params[:users][:cohort_id])
     enrollment_relation = Enrollment.where("cohort_id = ? AND user_id = ?", params[:users][:cohort_id], params[:users][:user_id])
     enrollment =  enrollment_relation.first
-    puts 'above inspect'
-    puts enrollment.inspect
     enrollment.status = "inactive"
     if enrollment.save!
       @active_cohort_users = @cohort.users.joins(:enrollments).where("enrollments.status" => "active")

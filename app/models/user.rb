@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_many :submissions
   has_many :comments
 
+  
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 

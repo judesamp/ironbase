@@ -26,13 +26,14 @@
 
 .large-12.medium-12.columns
   %h4.large-12.medium-12.columns.admin_main_title
-    = @assignment.name
-    = "(Due Date: #{@assignment.due_date})"
+    All Assignment Submissions
     - if current_user.has_role? :admin
       .span.button.tiny.round.edit_assignment_button
         Edit This Assignment
 
 .assignment_holder
+  %h3
+    = "#{@assignment.name} (Due Date: #{@assignment.due_date})"
   %table.assignment_table
     %thead
       %tr

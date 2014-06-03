@@ -46,17 +46,27 @@ class CommentsController < ApplicationController
     if comment.commentable_type == "Assignment"
       commenter = User.find(comment.user_id)
       assignment = Assignment.find(comment.commentable_id)
-      cohort = assignment.cohort
+      cohort = Cohort.find(assignment.cohort_id)
       CommentMailer.assignment_comment_email(commenter, cohort, assignment, comment).deliver
     else
       commenter = User.find(comment.user_id)
       submission = Submission.find(comment.commentable_id)
+      assignment = Assignment.find(submission.assignment.id)
+      cohort = Cohort.find(assignment.cohort_id)
       if commenter.has_role? :admin
         receiver = User.find(submission.user_id)
+        CommentMailer.submission_comment_email(commenter, receiver, submission, comment).deliver
       else
-        receiver = User.find(1) #add instructor to cohort; send to all instructors; receiver turns into cohort.instructors; loop through on other side
+        puts 'HHHHHHHHHHHH'
+        puts cohort.inspect
+        receiver = User.find_by_id(cohort.instructor_id) #send to all admins connected to cohort?
+        if receiver
+          CommentMailer.submission_comment_email(commenter, receiver, submission, comment).deliver
+        else
+          puts "Email not sent: no instructor set."
+          return
+        end
       end
-      CommentMailer.submission_comment_email(commenter, receiver, submission, comment).deliver
 
     end
   end

@@ -74,9 +74,8 @@ ul.off-canvas-list li a {
 }
 
 .admin_main {
-  height: 300px;
   padding: 0;
-  margin: 0;
+  margin-bottom: 50px;
 }
 
 .progress_padding {
@@ -303,4 +302,34 @@ p {
 
 .logged_in_text {
   color: white;
+}
+
+.no_border {
+  border: none;
+}
+
+.users_table {
+  position: relative;
+  top: 0;
+  margin: auto;
+}
+
+.dropdown {
+  position: relative;
+  top: 7px;  
+}
+
+.cohort_page_title {
+  position: relative;
+  top: 13px;
+  margin-right: 79px;
+}
+
+.top-nav {
+  position: relative;
+  top: 9px;
+}
+
+.cohort_assignments {
+  margin-top: 13px;
 }
