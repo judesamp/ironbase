@@ -1,3 +1,3 @@
 = f.label :instructor
-= f.select :instructor_id, options_for_select(User.with_role(:admin).collect {|l| [ l.email, l.id ] }), {:include_blank => "Choose an Instructor"}
+= f.select :instructor_id, options_for_select(User.with_role(:admin).collect {|l| [ l.email, l.id ] }), {:include_blank => "Choose an Instructor"}, :id => 'add_class'  
 = f.submit "Add Instructor"
