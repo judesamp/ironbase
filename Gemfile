@@ -27,8 +27,10 @@ group :development, :test do
   gem 'growl'
   gem 'growl_notify'
   gem 'ruby_gntp'
+  gem 'capybara'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'launchy'
 end
 
 

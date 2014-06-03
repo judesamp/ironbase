@@ -126,6 +126,14 @@ $ ->
     $('.create_admin_modal').fadeIn();
     $('#fade').fadeIn();
 
+  $(document).on 'click', '.add_instructor_button', ->
+    $('.add_instructor_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.remove_instructor_button', ->
+    $('.remove_instructor_modal').fadeIn();
+    $('#fade').fadeIn();
+
  
 
 

@@ -3,7 +3,7 @@
 = f.label :end_date
 = f.date_field :end_date
 = f.label :instructor
-= f.text_field :instructor
+= f.select :instructor_id, options_for_select(User.with_role(:admin).collect {|l| [ l.email, l.id ] }), :include_blank => "Choose an Instructor"
 = f.label :course
 = f.select :course_id, options_for_select(Course.all.collect {|l| [ l.name, l.id ] })
 = f.label :location
