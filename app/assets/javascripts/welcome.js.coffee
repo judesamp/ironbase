@@ -75,12 +75,11 @@ $ ->
     $('#fade').fadeIn();
 
   $(document).on 'click', '.edit_cohort_button', ->
-    $('.edit_cohort_modal').fadeIn();
+    cohort_id = $(this).attr('data-cohort-id');
+    modal = "#edit-" + cohort_id
+    $(modal).fadeIn();
     $('#fade').fadeIn();
 
-  $(document).on 'click', '.edit_cohort_button', ->
-    $('.new_cohort_modal').fadeIn();
-    $('#fade').fadeIn();
 
   $(document).on 'click', '.add_user_button', ->
     $('.add_user_modal').fadeIn();
@@ -127,11 +126,15 @@ $ ->
     $('#fade').fadeIn();
 
   $(document).on 'click', '.add_instructor_button', ->
-    $('.add_instructor_modal').fadeIn();
+    cohort_id = $(this).attr('data-cohort-id');
+    modal = "#add-" + cohort_id
+    $(modal).fadeIn();
     $('#fade').fadeIn();
 
   $(document).on 'click', '.remove_instructor_button', ->
-    $('.remove_instructor_modal').fadeIn();
+    cohort_id = $(this).attr('data-cohort-id');
+    modal = "#remove-" + cohort_id
+    $(modal).fadeIn();
     $('#fade').fadeIn();
 
  

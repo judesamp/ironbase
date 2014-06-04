@@ -13,6 +13,7 @@ class LocationsController < ApplicationController
 
   def show
     @location = Location.find(params[:id])
+    @cohorts = @location.cohorts.order(created_at: :desc)
   end
 
   private

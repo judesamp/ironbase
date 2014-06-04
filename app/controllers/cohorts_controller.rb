@@ -20,7 +20,8 @@ class CohortsController < ApplicationController
   def update
     @cohort = Cohort.find(params[:id])
     if @cohort.update(cohort_params)
-      redirect_to :back, notice: "Your cohort has been updated."
+      redirect_to :back, notice: "Your cohort #{@cohort.id} has been updated."
+
     else
       redirect_to :back, notice: "We were unable to update your cohort. Please try again."
     end
