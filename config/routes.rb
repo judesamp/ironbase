@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   root 'welcome#index'
 
-  devise_for :users
-
+  devise_for :users, controllers: { registrations: 'registrations'}
   resource :users do
  
       get 'dashboard'

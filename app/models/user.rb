@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   has_many :cohorts, through: :enrollments
   has_many :submissions
   has_many :comments
-
   
 
   devise :database_authenticatable, :registerable,
