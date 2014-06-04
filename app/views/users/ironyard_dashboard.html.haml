@@ -1,11 +1,16 @@
 %br
 .large-11.medium-11.columns.large-centered.medium-centered
-  %h2 Ironyard Global
+  %h2.inline_title Ironyard Global
+  .span.button.tiny.round.alert.create_admin_button.iron_button_admin
+    Create Admin
+
+  %br
+  %br
 
   .row
     .large-6.medium-6.columns
       %h3.inline_title Locations
-      %span.button.location_modal_button.tiny.round
+      %span.button.location_modal_button.tiny.round.button_up
         Create New Location
       %br
       - unless @locations.nil?
@@ -15,7 +20,7 @@
 
     .large-6.medium-6.columns
       %h3.inline_title Courses
-      %span.button.course_modal_button.tiny.round
+      %span.button.course_modal_button.tiny.round.button_up
         Create New Course
       %br
       - unless @courses.nil?
@@ -33,3 +38,21 @@
       %h1 Create a New Course
       = form_for Course.new do |f|
         = render 'courses/form', f: f
+
+.create_admin_modal.hide.modal_custom
+  %h1 Make User Admin
+  %table.wide_table
+    %thead
+      %td
+        User
+      %td
+        Make Admin?
+    %tbody
+      - User.all.each do |user|
+        - unless user.has_role? :admin
+          %tr
+            %td
+              = user.email
+            %td
+              = check_box_tag user.id, user.has_role?(:admin), user.has_role?(:admin), data: {"user-id" => user.id}, class: 'admin_checkbox'
+      %br

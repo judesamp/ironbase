@@ -23,18 +23,11 @@
         - unless user.has_role? :admin
           %tr
             %td
-              = link_to user.email, cohort_path(@cohort)
-            - if current_user.has_role? :admin 
-              %td
-                %span.button.tiny.secondary.round.dropdown{"data-dropdown" => "drop#{user.id}", href: "#"} Actions
-                %br/
-                %ul.f-dropdown{"data-dropdown-content" => "", id: "drop#{user.id}"}
-                  %li
-                    %a{href: "#"} This is a link
-                  %li
-                    %a{href: "mailto:#{user.email}?subject=Message from IronBaseOne"} Email User
-                  %li
-                    %a{href: "#", class: "remove", data: {"user-id" => user.id, "user-email" => user.email, "cohort-id" => @cohort.id}} Remove the User
+              %h5
+                = user.email
+            %td
+              - if current_user.has_role? :admin 
+                %a{href: "#", class: "remove", data: {"user-id" => user.id, "user-email" => user.email, "cohort-id" => @cohort.id}} Remove User
 
 .large-8.medium-8.columns.remove_padding
   %label.admin_sidebar_title
@@ -52,7 +45,8 @@
     - @cohort.assignments.each do |assignment|
       %tr
         %td
-          = link_to assignment.name, assignment_path(assignment)
+          %h5
+            = link_to assignment.name, assignment_path(assignment)
         %td
           Assigned on date here
         %td  

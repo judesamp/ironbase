@@ -7,18 +7,6 @@
     - else
       %h4.inline_title
         = @user.email
-    %a{"data-dropdown" => "hover1", "data-options" => "align:right; is_hover:true;", href: "#"} 
-      Actions
-      %ul#hover1.f-dropdown{"data-dropdown-content" => ""}
-        %li
-          %a{href: "#", class: "add_name"} Add a Name
-        %li
-          %a{href: "#", class: "edit_settings"} Edit Settings
-        %li
-          %a{href: "#", class: "email_instructor"} Email Instructor
-        %li
-          %a{href: "#", class: "edit_info", data: {"user-id" => @user.id, "user-email" => @user.email}} 
-            Edit Info
 
   .large-6.medium-6.columns
     - if @cohort.nil?

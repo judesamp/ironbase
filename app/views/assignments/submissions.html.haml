@@ -7,24 +7,12 @@
     - else
       %h4.inline_title
         = current_user.email
-    %a{"data-dropdown" => "hover1", "data-options" => "align:right; is_hover:true;", href: "#"} 
-      Actions
-      %ul#hover1.f-dropdown{"data-dropdown-content" => ""}
-        %li
-          %a{href: "#", class: "add_name"} Add a Name
-        %li
-          %a{href: "#", class: "edit_settings"} Edit Settings
-        %li
-          %a{href: "#", class: "email_instructor"} Email Instructor
-        %li
-          %a{href: "#", class: "edit_info", data: {"user-id" => current_user.id, "user-email" => current_user.email}} 
-            Edit Info
 
   .large-6.medium-6.columns
     %h3.inline_title.user_cohort_name= pretty_cohort_name(@assignment.cohort)
 %br
 
-.large-12.medium-12.columns
+.large-12.medium-12.columns.remove_padding
   %h4.large-12.medium-12.columns.admin_main_title
     All Assignment Submissions
     - if current_user.has_role? :admin
@@ -32,8 +20,13 @@
         Edit This Assignment
 
 .assignment_holder
-  %h3
+  %br
+  %br
+  %br
+  %br
+  %h3.assignment_padding_left
     = "#{@assignment.name} (Due Date: #{@assignment.due_date})"
+  %br
   %table.assignment_table
     %thead
       %tr

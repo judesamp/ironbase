@@ -7,61 +7,58 @@
     - else
       %h4.inline_title
         = current_user.email
-    %a{"data-dropdown" => "hover1", "data-options" => "align:right; is_hover:true;", href: "#"} 
-      Actions
-      %ul#hover1.f-dropdown{"data-dropdown-content" => ""}
-        %li
-          %a{href: "#", class: "add_name"} Add a Name
-        %li
-          %a{href: "#", class: "edit_settings"} Edit Settings
-        %li
-          %a{href: "#", class: "email_instructor"} Email Instructor
-        %li
-          %a{href: "#", class: "edit_info", data: {"user-id" => current_user.id, "user-email" => current_user.email}} 
-            Edit Info
 
   .large-6.medium-6.columns
     %h3.inline_title.user_cohort_name= pretty_cohort_name(@assignment.cohort)
 %br
 
-.large-12.medium-12.columns.admin_main
-  %h4.admin_main_title
-    Assignment Discussion Board
+
+
+.row.main_row
+  .large-8.medium-8.large-centered.medium-centered.columns
+    %h4.white.add_margin_right.inline_title
+      Assignment Discussion Board
     - if current_user.has_role? :admin
-      .span.button.tiny.round.edit_assignment_button
+      .span.button.tiny.round.edit_assignment_button.move_up
         Edit Assignment
-      = link_to "Assignment Submissions", submissions_assignment_path(@assignment), class: "button tiny round"
-    -else
+      = link_to "Assignment Submissions", submissions_assignment_path(@assignment), class: "button tiny round move_up"
+    - else
       - if @submission.nil?
-        .span.button.tiny.round.submit_submission_button
+        .span.button.tiny.round.submit_submission_button.move_up
           Submit Assignment
       - else
-        .span.button.tiny.round.edit_submission_button
+        .span.button.tiny.round.edit_submission_button.move_up
           Edit Your Submission
-      
+        
       - unless @submission.nil?
-        .span.button.tiny.round.secondary
+        .span.button.tiny.round.secondary.move_up
           .color
             = link_to "View Your Submission", submission_path(@submission.id)
-  .row
-    - if  current_user.has_role? :admin
-      .large-3.medium-3.columns
-        %h4
-          Number Submitted:
-          = @assignment.submissions.count
+.row
+  %br
+  %br
+.row
+  - if  current_user.has_role? :admin
+    .large-3.medium-3.columns.side_box
+      %h3
+        = @assignment.submissions.count
+      Submitted
+        
+      %br
+      = link_to "View All Submissions", submissions_assignment_path(@assignment)
+  - else
+    .large-3.medium-3.columns.side_box
+      - unless @submission.nil?
+        = link_to "Your Submission:", submission_path(@submission.id)
         %br
-        = link_to "View All Submissions", submissions_assignment_path(@assignment)
-    - else
-      .large-3.medium-3.columns
-        - unless @submission.nil?
-          = link_to "Your Submission's", submission_path(@submission.id)
-        Current Status:
-        - if @submission.nil? || @submission.workflow_state.nil?
-          Not Yet Submitted
-        - else
-          = pretty_workflow_state(@submission.workflow_state)
+      Current Status:
+      %br
+      - if @submission.nil? || @submission.workflow_state.nil?
+        Not Yet Submitted
+      - else
+        = pretty_workflow_state(@submission.workflow_state)
 
-  
+  .large-6.medium-6.columns.large-offset-1.medium-offset-1.end
     %h4
       = @assignment.name
       = "(Due Date: #{@assignment.due_date})"

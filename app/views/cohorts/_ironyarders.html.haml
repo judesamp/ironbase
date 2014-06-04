@@ -2,14 +2,8 @@
   - unless user.has_role? :admin
     %tr
       %td
-        = link_to user.email, cohort_path(@cohort)
+        %h5
+          = user.email
       %td
-        %span.button.tiny.secondary.round.dropdown{"data-dropdown" => "drop#{user.id}", href: "#"} Actions
-        %br/
-        %ul.f-dropdown{"data-dropdown-content" => "", id: "drop#{user.id}"}
-          %li
-            %a{href: "#"} This is a link
-          %li
-            %a{href: "mailto:#{user.email}?subject=Message from IronBaseOne"} Email User
-          %li
-            %a{href: "#", class: "remove", data: {"user-id" => user.id, "user-email" => user.email, "cohort-id" => @cohort.id}} Remove the User
+        - if current_user.has_role? :admin 
+          %a{href: "#", class: "remove", data: {"user-id" => user.id, "user-email" => user.email, "cohort-id" => @cohort.id}} Remove User

@@ -73,6 +73,17 @@ ul.off-canvas-list li a {
   padding-left: 40px;
 }
 
+.main_row {
+  height: 50px;
+  background: #333333;
+  padding: 0;
+  margin: 0;
+  color: white;
+  padding-top: 8px;
+  padding-left: 40px;
+  max-width: 100% !important;
+}
+
 .admin_main {
   padding: 0;
   margin-bottom: 50px;
@@ -310,7 +321,7 @@ p {
 
 .users_table {
   position: relative;
-  top: 0;
+  top: 5px;
   margin: auto;
 }
 
@@ -333,3 +344,50 @@ p {
 .cohort_assignments {
   margin-top: 13px;
 }
+
+.white {
+  color: white;
+}
+
+.side_box {
+  height: 180px;
+  background: lightgray;
+  line-height: 60px;
+  text-align: center;
+  border-radius: 150px;
+  margin-bottom: 40px;
+}
+
+.add_margin_right {
+  margin-right: 20px;
+}
+
+.move_up {
+  position: relative;
+  bottom: 5px;
+}
+
+.assignment_padding_left {
+  padding-left: 20px;
+}
+
+.iron_button_admin {
+  position: relative;
+  bottom: 9px;
+  left: 40px;
+}
+
+.button_up {
+  position: relative;
+  bottom: 4px;
+  left: 23px;
+}
+
+.table_button {
+  position: relative;
+  top: 10px;
+}
+
+
+
+
