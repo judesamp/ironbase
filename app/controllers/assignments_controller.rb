@@ -9,7 +9,17 @@ class AssignmentsController < ApplicationController
     else
       gflash error: "We were unable to create your assignment. Please try again."
       redirect_to cohort_path(@assignment.cohort_id)
+    end
+  end
 
+  def update
+    @assignment = Assignment.find(params[:id])
+    if @assignment.update(assignment_params)
+      gflash success: "Your assignment has been updated!"
+      redirect_to :back
+    else
+      gflash error: "We were unable to update your assignment. Please try again."
+      redirect_to :back
     end
   end
 
