@@ -56,3 +56,6 @@
             %td
               = check_box_tag user.id, user.has_role?(:admin), user.has_role?(:admin), data: {"user-id" => user.id}, class: 'admin_checkbox'
       %br
+
+.admin_message.modal_custom
+  User successfull promoted to admin!

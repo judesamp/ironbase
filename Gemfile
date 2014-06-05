@@ -16,6 +16,7 @@ gem 'foundation-rails'
 gem 'haml-rails'
 gem 'rails_12factor'
 gem 'workflow'
+gem "gritter", "1.1.0"
 
 
 group :development, :test do

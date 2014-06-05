@@ -5,9 +5,11 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     if @course.save
-      redirect_to ironyard_dashboard_users_path, notice: "The course was created successfully!"
+      gflash success: "The course was created successfully!"
+      redirect_to ironyard_dashboard_users_path 
     else
-      redirect_to ironyard_dashboard_users_path, notice: "Something went wrong. Please try again."
+      gflash error: "Something went wrong. Please try again."
+      redirect_to ironyard_dashboard_users_path 
     end
   end
 

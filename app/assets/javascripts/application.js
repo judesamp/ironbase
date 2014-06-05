@@ -15,6 +15,7 @@
 //= require dashboard.js
 
 //= require foundation
+//= require gritter
 //= require turbolinks
 
 //= require_tree .

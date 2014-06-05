@@ -8,9 +8,11 @@ class SubmissionsController < ApplicationController
     
       if @submission.save
         @submission.submit!
-        redirect_to assignment_path(@submission.assignment_id), notice: 'Your assignment submission has been created.'
+        success: 'Your assignment submission has been created.'
+        redirect_to assignment_path(@submission.assignment_id)
       else
-        redirect_to assignment_path(@submission.assignment_id), notice: "There was a problem creating your assignment submission. Please try again. Keep in mind that you can only create one submission per assignment. Please feel free to edit this submission at any time."
+        error: "There was a problem creating your assignment submission. Please try again. Keep in mind that you can only create one submission per assignment. Please feel free to edit this submission at any time."
+        redirect_to assignment_path(@submission.assignment_id)
       end
   end
 
@@ -18,9 +20,11 @@ class SubmissionsController < ApplicationController
     @submission = Submission.find(params[:id])
     @assignment = Assignment.find(@submission.assignment_id)
     if @submission.update(submission_params)
-      redirect_to assignment_path(@submission.assignment_id), notice: 'Your assignment submission has been successfully update.'
+      gflash success: 'Your assignment submission has been successfully update.'
+      redirect_to assignment_path(@submission.assignment_id)
     else
-      redirect_to assignment_path(@submission.assignment_id), notice: "There was a problem updating your assignment submission. Please try again."
+      gflash error: "There was a problem updating your assignment submission. Please try again."
+      redirect_to assignment_path(@submission.assignment_id)
     end
   end
 
@@ -37,9 +41,11 @@ class SubmissionsController < ApplicationController
     @assignment = Assignment.find(@submission.assignment_id)
     if @submission.update(submission_params)
       @submission.resubmit!
-      redirect_to submission_path(@submission), notice: 'Your assignment submission has been successfully update.'
+      gflash success: 'Your assignment submission has been successfully updated and resubmitted.'
+      redirect_to submission_path(@submission)
     else
-      redirect_to submission_path(@submission), notice: "There was a problem updating your assignment submission. Please try again."
+      gflash error: 'There was a problem. Please try again.'
+      redirect_to submission_path(@submission)
     end
   end
 

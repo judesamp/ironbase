@@ -6,8 +6,10 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     if @comment.save
       send_comment_email(@comment)
+      gflash success: "Your comment has been created!"
       redirect_to :back
     else
+      gflash error: "There was a problem. We were unable to create your comment!"
       redirect_to :back
     end
   end
@@ -18,8 +20,10 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     if @comment.save
       send_comment_email(@comment)
+      gflash error: "The submission has been rejected!"
       redirect_to :back
     else
+      gflash error: "There was a problem. We were unable to mark the submission as rejected. Please try again!"
       redirect_to :back
     end
   end
@@ -30,8 +34,10 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     if @comment.save
       send_comment_email(@comment)
+      gflash success: "The submission has been accepted!"
       redirect_to :back
     else
+      gflash error: "There was a problem. We were unable to mark the submission as accepted. Please try again!"
       redirect_to :back
     end
   end
@@ -57,13 +63,11 @@ class CommentsController < ApplicationController
         receiver = User.find(submission.user_id)
         CommentMailer.submission_comment_email(commenter, receiver, submission, comment).deliver
       else
-        puts 'HHHHHHHHHHHH'
-        puts cohort.inspect
         receiver = User.find_by_id(cohort.instructor_id) #send to all admins connected to cohort?
         if receiver
           CommentMailer.submission_comment_email(commenter, receiver, submission, comment).deliver
         else
-          puts "Email not sent: no instructor set."
+          gflash error: "Email not sent: no instructor set."
           return
         end
       end

@@ -4,8 +4,10 @@ class AssignmentsController < ApplicationController
   def create
     @assignment = Assignment.new(assignment_params)
     if @assignment.save
+      gflash success: "Your assignment has been created!"
       redirect_to cohort_path(@assignment.cohort_id)
     else
+      gflash error: "We were unable to create your assignment. Please try again."
       redirect_to cohort_path(@assignment.cohort_id)
 
     end

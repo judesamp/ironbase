@@ -5,9 +5,11 @@ class CohortsController < ApplicationController
   def create
     @cohort = Cohort.new(cohort_params)
     if @cohort.save
-      redirect_to location_path(@cohort.location_id), notice: "Your cohort has been created!"
+      gflash success: "Your cohort has been created!"
+      redirect_to location_path(@cohort.location_id)
     else
-      redirect_to ironyard_dashboard_users_path, notice: "We were unable to create your cohort. Please try again."
+      gflash error: "We were unable to create your cohort. Please try again."
+      redirect_to ironyard_dashboard_users_path
     end
   end
 
@@ -20,10 +22,11 @@ class CohortsController < ApplicationController
   def update
     @cohort = Cohort.find(params[:id])
     if @cohort.update(cohort_params)
-      redirect_to :back, notice: "Your cohort #{@cohort.id} has been updated."
-
+      gflash notice: "Your cohort has been updated."
+      redirect_to :back
     else
-      redirect_to :back, notice: "We were unable to update your cohort. Please try again."
+      gflash error: "We were unable to update your cohort. Please try again."
+      redirect_to :back
     end
   end
 

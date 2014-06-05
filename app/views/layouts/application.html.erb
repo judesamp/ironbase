@@ -47,19 +47,9 @@
         <% end %>
       </div>
     </div>
-  
-    <% if flash[:notice] %>
-      <div class="alert-message warning">
-        <p><%= flash[:notice] %></p>
-      </div>
-    <% end %>
 
-    <% if flash[:alert] %>
-      <div class="alert-message error">
-        <p><%= flash[:alert] %></p>
-      </div>
-    <% end %>
-
+    <%= gflash %>
+    
     <%= yield %>
   
 

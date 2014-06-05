@@ -22,10 +22,7 @@ class UsersController < ApplicationController
   def add_user_to_cohort
     user = User.find(params[:users][:user_id])
     @cohort = Cohort.find(params[:users][:cohort_id])
-    puts user.inspect
-    puts @cohort.inspect
     enrollment_relation = Enrollment.where("cohort_id = ? AND user_id = ?", @cohort.id, user.id)
-    puts enrollment_relation.inspect
     enrollment = enrollment_relation.first
     if @cohort.users.include? user
       if enrollment.status == "active"
@@ -36,7 +33,6 @@ class UsersController < ApplicationController
         enrollment.status = "active"
         enrollment.save
         @active_cohort_users = @cohort.users.joins(:enrollments).where("enrollments.status" => "active")
-        puts @active_cohort_users.inspect
         respond_to do |format|
           format.js
         end
@@ -67,6 +63,11 @@ class UsersController < ApplicationController
         format.js {render status: 500}
       end
     end
+  end
+
+  def make_admin
+    user = User.find(params[:users][:user_id])
+    user.add_role :admin
   end
 
   private
