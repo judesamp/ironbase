@@ -10,13 +10,10 @@
 
   %br
   %br
+  .row
   - @locations.each do |location|
-    .large-2.medium-2.columns
-      %h3
-        = link_to location.name, location_path(location)
-
-
-
+    %h3
+      = link_to location.name, location_path(location)
 
 .new_course_modal.hide.modal_custom
   %h1 Create a New Course
