@@ -50,15 +50,13 @@ class CommentsController < ApplicationController
 
   def send_comment_email(comment)
     if comment.commentable_type == "Assignment"
-      commenter = User.find(comment.user_id)
       assignment = Assignment.find(comment.commentable_id)
-      cohort = Cohort.find(assignment.cohort_id)
+      commenter, cohort = gather_data(comment, assignment)
       CommentMailer.assignment_comment_email(commenter, cohort, assignment, comment).deliver
     else
-      commenter = User.find(comment.user_id)
       submission = Submission.find(comment.commentable_id)
       assignment = Assignment.find(submission.assignment.id)
-      cohort = Cohort.find(assignment.cohort_id)
+      commenter, cohort = gather_data(comment, assignment)
       if commenter.has_role? :admin
         receiver = User.find(submission.user_id)
         CommentMailer.submission_comment_email(commenter, receiver, submission, comment).deliver
@@ -73,5 +71,13 @@ class CommentsController < ApplicationController
       end
 
     end
+  end
+
+  private
+
+  def gather_data(comment, assignment)
+    commenter = User.find(comment.user_id)   
+    cohort = Cohort.find(assignment.cohort_id)
+    return commenter, cohort
   end
 end
