@@ -16,7 +16,7 @@
       - unless @locations.nil?
         - @locations.each do |location|
           %h3
-            = link_to location.name, location_path(location)
+            = link_to location.name, location_path(location), { "data-no-turbolink" => "true" }
 
     .large-6.medium-6.columns
       %h3.inline_title Courses

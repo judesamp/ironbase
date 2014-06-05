@@ -12,9 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+//= require dashboard.js
+
 //= require foundation
+//= require turbolinks
+
 //= require_tree .
+
 
 
 
