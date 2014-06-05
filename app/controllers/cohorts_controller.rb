@@ -16,7 +16,6 @@ class CohortsController < ApplicationController
   def show
     @cohort = Cohort.find(params[:id])
     @active_cohort_users = @cohort.users.joins(:enrollments).where("enrollments.status" => "active").uniq
-    puts @active_cohort_users.inspect
   end
 
   def update

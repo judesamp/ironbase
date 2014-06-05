@@ -15,6 +15,9 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+    @cohorts = Cohort.where(:course_id => @course.id)
+    location_ids = @cohorts.pluck(:location_id).uniq
+    @locations = location_ids.map { |loc_id| Location.find(loc_id)}
   end
 
   private

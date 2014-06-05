@@ -1,1 +1,26 @@
-course
+%br
+.large-11.medium-11.columns.large-centered.medium-centered
+  %h2.inline_title= @course.name
+  %span.button.course_modal_button.tiny.round.button_up
+    Create Course
+
+  %br
+  %h4
+    This course is being taught at the following locations:
+
+  %br
+  %br
+  - @locations.each do |location|
+    .large-2.medium-2.columns
+      %h3
+        = link_to location.name, location_path(location)
+
+
+
+
+.new_course_modal.hide.modal_custom
+  %h1 Create a New Course
+  = form_for Course.new do |f|
+    = render 'courses/form', f: f
+
+
