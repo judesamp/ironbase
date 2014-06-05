@@ -8,10 +8,10 @@ class SubmissionsController < ApplicationController
     
       if @submission.save
         @submission.submit!
-        success: 'Your assignment submission has been created.'
+        gflash success: 'Your assignment submission has been created.'
         redirect_to assignment_path(@submission.assignment_id)
       else
-        error: "There was a problem creating your assignment submission. Please try again. Keep in mind that you can only create one submission per assignment. Please feel free to edit this submission at any time."
+        gflash error: "There was a problem creating your assignment submission. Please try again. Keep in mind that you can only create one submission per assignment. Please feel free to edit this submission at any time."
         redirect_to assignment_path(@submission.assignment_id)
       end
   end

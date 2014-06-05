@@ -78,7 +78,8 @@ class UsersController < ApplicationController
 
   def ensure_admin
     unless current_user.present? and current_user.has_role? :admin
-      redirect_to root_path, notice: "This is not the page you are looking for."
+      gflash notice: "This is not the page you are looking for."
+      redirect_to root_path
     end
   end
   
