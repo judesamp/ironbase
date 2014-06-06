@@ -1,0 +1,4 @@
+$('.edit_cohort_modal').html("");
+$('.edit_cohort_modal').html("<%= escape_javascript render(:partial => 'cohorts/edit_modal', :locals => { :cohort => @cohort, :location => @location})%>");
+$('.edit_cohort_modal').fadeIn('slow');
+$('#fade').fadeIn('slow');

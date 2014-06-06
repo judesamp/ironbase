@@ -137,6 +137,21 @@ $ ->
     $(modal).fadeIn();
     $('#fade').fadeIn();
 
+  $(document).on 'change', '#cohort_start_date', (e) ->
+    form_date = $(this).val()
+    start_date = new Date(form_date);
+    new_date = AddDate(start_date, 4, "M")
+    preday = new_date.getDate();
+    day = Pad(preday);
+    premonth = new_date.getMonth();
+    month = Pad(premonth);
+    year = new_date.getFullYear();
+    date_string = year + '-' + month + '-' + day
+    $('#cohort_end_date').val(date_string) 
+   
+  
+
+
  
 
 

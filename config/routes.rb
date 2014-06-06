@@ -17,7 +17,11 @@ Rails.application.routes.draw do
 
   resources :locations
 
-  resources :cohorts
+  resources :cohorts do
+    get 'edit_modal'
+    get 'remove_instructor_modal'
+    get 'add_instructor_modal'
+  end
 
   resources :assignments do
     member do
@@ -38,6 +42,8 @@ Rails.application.routes.draw do
       patch 'reject'
     end
   end
+
+  get 'prepopulate_date' => 'cohorts#prepopulate_date'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

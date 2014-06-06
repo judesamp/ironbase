@@ -29,6 +29,32 @@ class CohortsController < ApplicationController
     end
   end
 
+  def prepopulate_date
+    @cohort = Cohort.find 6
+    date = Date.parse(params[:start_date])
+    new_date = date + 3.months
+    @new_date = new_date
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def edit_modal
+    @cohort = Cohort.find(params[:cohort_id])
+    @location = Location.find(params[:location_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def add_instructor_modal
+    @cohort = Cohort.find(params[:cohort_id])
+  end
+
+  def remove_instructor_modal
+    @cohort = Cohort.find(params[:cohort_id])
+  end
+
   private
   def cohort_params
     params.require(:cohort).permit(:name, :subject, :start_date, :end_date, :course_id, :location_id, :instructor_id)

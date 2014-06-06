@@ -31,39 +31,30 @@
           %td
             = link_to "Cohort Dashboard", cohort_path(cohort), class: "button tiny round table_button"
           %td
-            .span.button.edit_cohort_button.tiny.round.table_button{:data => {'cohort-id' => cohort.id}}  
-              Edit Cohort
+            = link_to "Edit Cohort", cohort_edit_modal_path(cohort, 'location_id' => @location.id), :remote => true, class: "button edit_cohort_button tiny round table_button"
 
           %td
             - if cohort.instructor_id.nil?
-              %span.button.add_instructor_button.tiny.round.table_button{:data => {'cohort-id' => cohort.id}}
-                Add Instructor
+              = link_to "Add Instructor", cohort_add_instructor_modal_path(cohort, 'location_id' => @location.id), :remote => true, class: "button add_instructor_button tiny round table_button"
 
             - else
-              %span.button.remove_instructor_button.tiny.round.table_button{:data => {'cohort-id' => cohort.id}}
-                Remove Instructor
+              = link_to "Remove Instructor", cohort_remove_instructor_modal_path(cohort, 'location_id' => @location.id), :remote => true, class: "button remove_instructor_button tiny round table_button"
               
           
-        .edit_cohort_modal.hide.modal_custom{id: "edit-#{cohort.id}"}
-          %h1 Edit Cohort
-          = form_for cohort do |f|
-            = render 'cohorts/form', f: f, location: @location
+  
 
-        .add_instructor_modal.hide.modal_custom{id: "add-#{cohort.id}"}
-          %h1 Add Instructor
-          .add_instructor_form
-            = form_for cohort, url: cohort_path(cohort.id) do |f|
-              = render 'cohorts/add_instructor_form', f: f
 
-        .remove_instructor_modal.hide.modal_custom{id: "remove-#{cohort.id}"}
-          %h1 Remove Instructor
-          = form_for cohort, url: cohort_path(cohort.id) do |f|
-            = render 'cohorts/remove_instructor_form', f: f
-               
-        
+.edit_cohort_modal.hide.modal_custom
 
-  .new_cohort_modal.hide.modal_custom
-    %h1 Create a New Cohort
-    = form_for Cohort.new do |f|
-      = render 'cohorts/form', f: f, location: @location
+
+.add_instructor_modal.hide.modal_custom
+
+
+.remove_instructor_modal.hide.modal_custom
+
+             
+.new_cohort_modal.hide.modal_custom
+  %h1 Create a New Cohort
+  = form_for Cohort.new do |f|
+    = render 'cohorts/form', f: f, location: @location
 

@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require dashboard.js
 
+
 //= require foundation
 //= require gritter
 //= require turbolinks
@@ -26,4 +27,35 @@
 $(function(){
  $(document).foundation(); 
 });
+
+function Pad(n) {return n < 10 ? '0' + n : n}
+
+function AddDate(oldDate, offset, offsetType) {
+  console.log(oldDate);
+       var year = parseInt(oldDate.getFullYear());
+       console.log(year);
+       var month = parseInt(oldDate.getMonth());
+       console.log(month);
+       var date = parseInt(oldDate.getDate());
+       console.log(date);
+       var newDate;
+       switch (offsetType) {
+       case "Y":
+       case "y":
+           newDate = new Date(year + offset, month, date);
+           break;
+
+       case "M":
+       case "m":
+           newDate = new Date(year, month + offset, date);
+           break;
+
+       case "D":
+       case "d":
+           newDate = new Date(year, month, date + offset);
+           break;
+
+       }
+       return newDate;            
+   } 
 

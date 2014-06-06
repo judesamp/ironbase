@@ -1,0 +1,4 @@
+$('.remove_instructor_modal').html("");
+$('.remove_instructor_modal').html("<%= escape_javascript render(:partial => 'cohorts/remove_instructor', :locals => { :cohort => @cohort })%>");
+$('.remove_instructor_modal').fadeIn('slow');
+$('#fade').fadeIn('slow');

@@ -1,0 +1,4 @@
+%h1 Add Instructor
+.add_instructor_form
+  = form_for cohort, url: cohort_path(cohort.id) do |f|
+    = render 'cohorts/add_instructor_form', f: f

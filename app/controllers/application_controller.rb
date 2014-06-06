@@ -30,6 +30,8 @@ class ApplicationController < ActionController::Base
     Submission.where("user_id = ? AND assignment_id = ?", user.id, assignment.id).first
   end
 
+  
+
   protected
 
   def configure_permitted_parameters
