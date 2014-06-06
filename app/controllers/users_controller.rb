@@ -27,6 +27,7 @@ class UsersController < ApplicationController
     enrollment.status = "active"
     if enrollment.save!
       @active_cohort_users = @cohort.users.joins(:enrollments).where("enrollments.status" => "active")
+
       respond_to do |format|
         format.js
       end
