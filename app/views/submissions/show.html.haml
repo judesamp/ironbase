@@ -37,8 +37,9 @@
         .truncated_description
           = truncate(@assignment.description, :length => 200)
           = "..."
-          %a.more_description
-            view more
+          - if @assignment.description.length > 200
+            %a.more_description
+              view more
         .hidden_description
           = @assignment.description
           %a.more_description
@@ -71,8 +72,10 @@
         .truncated_content
           = truncate(@submission.content, :length => 200)
           = "..."
-          %a.more_submission
-            view more
+          - if @submission.content.length > 200
+            %a.more_submission
+              view more
+          
         .hidden_content
           = @submission.content
           %a.more_submission
