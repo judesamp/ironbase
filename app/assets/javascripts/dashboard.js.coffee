@@ -76,8 +76,7 @@ $ ->
 
   $(document).on 'click', '.edit_cohort_button', ->
     cohort_id = $(this).attr('data-cohort-id');
-    modal = "#edit-" + cohort_id
-    $(modal).fadeIn();
+    $('.edit_cohort_modal').fadeIn();
     $('#fade').fadeIn();
 
 
