@@ -1,6 +1,7 @@
 .row
   .large-12.medium-12.columns
-    %h3.cohort_page_title.inline_title= pretty_cohort_name(@cohort)
+    %h3.cohort_page_title.inline_title
+      = pretty_cohort_name(@cohort) 
     - if current_user.has_role? :admin
       .span.button.tiny.round.alert.create_assignment_button.top-nav
         Create Assignment
@@ -10,11 +11,12 @@
         Add User
       .span.button.tiny.round.alert.create_admin_button.top-nav
         Create Admin
-
 %br
 
 .large-4.medium-4.columns.remove_padding
   %label.admin_sidebar_title.ironyarders_border
+    %span.button.tiny.round.alert.question.cohort_question
+      ?
     Ironyarders
   %br
   %table.no_border.users_table
@@ -103,3 +105,6 @@
 
 .admin_message.modal_custom
   User successfull promoted to admin!
+
+.cohort_info_modal.hide.modal_custom
+  = render 'info/cohort_info_modal'

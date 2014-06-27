@@ -146,9 +146,36 @@ $ ->
     month = Pad(premonth);
     year = new_date.getFullYear();
     date_string = year + '-' + month + '-' + day
-    $('#cohort_end_date').val(date_string) 
-   
-  
+    $('#cohort_end_date').val(date_string)
+
+  $(document).on 'click', '.ironyard_dashboard_info_question', (e) -> 
+    $('.ironyard_dashboard_info_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.location_question', (e) ->
+    $('.location_info_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.cohort_question', (e) ->
+    $('.cohort_info_modal').fadeIn();
+    $('#fade').fadeIn(); 
+
+  $(document).on 'click', '.assignment_question', (e) ->
+    $('.assignment_info_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.submission_question', (e) -> 
+    $('.submission_info_modal').fadeIn();
+    $('#fade').fadeIn();
+
+  $(document).on 'click', '.user_dashboard_question', (e) -> 
+    $('.users_dashboard_info_modal').fadeIn();
+    $('#fade').fadeIn();
+
+
+  $(document).on 'click', '.submission_show_question', (e) -> 
+    $('.submission_show_info_modal').fadeIn();
+    $('#fade').fadeIn();
 
 
  

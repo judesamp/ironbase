@@ -1,28 +1,27 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 
 
-Things you may want to cover:
+A Rails app designed to manage courses, assignments, and homework submissions among other things. Includes both student and admin sides. Also employs a homework flow (created using the workflow gem). Also has a comment system complete with email notifications.
 
-* Ruby version
+## Installation / Setup
 
-* System dependencies
+Clone Repo locally. Install gems:
 
-* Configuration
+    bundle install
 
-* Database creation
+Set up database. We are using sqlite.
 
-* Database initialization
+    rake db:create db:migrate
 
-* How to run the test suite
+Includes a few capybara tests.
 
-* Services (job queues, cache servers, search engines, etc.)
+## Contributing
 
-* Deployment instructions
+We are not accepting contributions at the moment.
 
-* ...
+## License
+
+MIT License. Yay!
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.

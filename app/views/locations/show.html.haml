@@ -3,6 +3,8 @@
   %h2.inline_title= @location.name
   %span.button.create_cohort_button.tiny.round.iron_button_admin
     Create New Cohort
+  %span.button.tiny.round.alert.iron_button_admin.question.location_question
+    ?
 
   %table.wide_table
     %thead
@@ -58,3 +60,5 @@
   = form_for Cohort.new do |f|
     = render 'cohorts/form', f: f, location: @location
 
+.location_info_modal.hide.modal_custom
+  = render 'info/location_info_modal'

@@ -24,7 +24,7 @@ class AssignmentsController < ApplicationController
   end
 
   def show
-    @assignment = Assignment.find(params[:id])
+    @assignment = Assignment.find(params[:id]).decorate
     @comments = @assignment.comments
     submissions = @assignment.submissions.where(:user_id => current_user.id)
     @submission = submissions.first

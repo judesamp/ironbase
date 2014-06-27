@@ -1,0 +1,7 @@
+.large-3.medium-3.columns.side_box
+  - unless submission.nil?
+    = link_to "Your Submission:", submission_path(submission.id)
+    %br
+  Current Status:
+  %br
+  = assignment.display_current_status(submission)

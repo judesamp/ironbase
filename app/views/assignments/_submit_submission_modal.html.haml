@@ -1,0 +1,6 @@
+.submit_submission_modal.hide.modal_custom
+  %h1 Submit your Assignment
+  = form_for Submission.new do |f|
+    = f.hidden_field :assignment_id, :value => @assignment.id
+    = f.hidden_field :user_id, :value => current_user.id
+    = render 'submissions/form', f: f

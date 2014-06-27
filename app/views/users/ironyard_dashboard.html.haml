@@ -3,6 +3,8 @@
   %h2.inline_title Ironyard Global
   .span.button.tiny.round.alert.create_admin_button.iron_button_admin
     Create Admin
+  %span.button.tiny.round.alert.iron_button_admin.question.ironyard_dashboard_info_question
+    ?
 
   %br
   %br
@@ -59,3 +61,6 @@
 
 .admin_message.modal_custom
   User successfull promoted to admin!
+
+.ironyard_dashboard_info_modal.hide.modal_custom
+  = render 'info/ironyard_dashboard_info_modal'

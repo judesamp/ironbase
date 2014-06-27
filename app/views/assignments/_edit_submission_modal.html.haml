@@ -1,0 +1,4 @@
+.edit_submission_modal.hide.modal_custom
+  %h1 Edit Assignment Submission
+  = form_for @submission, url: submission_path(@submission), method: :patch do |f|
+    = render 'submissions/form', f: f

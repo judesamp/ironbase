@@ -1,0 +1,6 @@
+.large-3.medium-3.columns.side_box
+  %h3
+    = assignment.submissions.count
+  Submitted
+  %br
+  = link_to "View All Submissions", submissions_assignment_path(assignment)

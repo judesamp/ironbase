@@ -1,0 +1,11 @@
+- if submission.nil?
+  .span.button.tiny.round.submit_submission_button.move_up
+    Submit Assignment
+- else
+  .span.button.tiny.round.edit_submission_button.move_up
+    Edit Your Submission
+  
+- unless submission.nil?
+  .span.button.tiny.round.secondary.move_up
+    .color
+      = link_to "View Your Submission", submission_path(submission.id)

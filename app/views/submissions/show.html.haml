@@ -21,6 +21,8 @@
     Your submission for: 
     = @assignment.name
     = "(Due: #{@assignment.due_date})"
+    %span.button.tiny.round.alert.question.submission_show_question
+      ?
   .large-4.medium-4.columns.admin_main_title
     .span.button.success.medium.round.status_alert
       Submission Status:
@@ -140,9 +142,10 @@
   = form_for @submission do |f|
     = render 'submissions/form', f: f
       
+.submission_info_modal.hide.modal_custom
+  = render 'info/submission_info_modal'   
 
-      
 
-
-
+.submission_show_info_modal.hide.modal_custom
+  = render 'info/submission_show_info_modal'
 

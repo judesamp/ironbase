@@ -1,0 +1,4 @@
+.edit_assignment_modal.hide.modal_custom
+  %h1 Edit the Assignment
+  = form_for assignment do |f|
+    = render 'assignments/form', f: f

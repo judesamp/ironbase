@@ -1,62 +1,28 @@
 .row.user_top
   .large-6.medium-6.columns
     = image_tag grab_gravatar
-    - if current_user.first_name.present?
-      = current_user.first_name
-      = current_user.last_name
-    - else
-      %h4.inline_title
-        = current_user.email
+
+    %h4.inline_title
+      = @assignment.add_identifier
 
   .large-6.medium-6.columns
     %h3.inline_title.user_cohort_name= pretty_cohort_name(@assignment.cohort)
 %br
 
-
-
 .row.main_row
   .large-8.medium-8.large-centered.medium-centered.columns
     %h4.white.add_margin_right.inline_title
+      %span.button.tiny.round.alert.question.cohort_question.assignment_question
+        ?
       Assignment Discussion Board
-    - if current_user.has_role? :admin
-      .span.button.tiny.round.edit_assignment_button.move_up
-        Edit Assignment
-      = link_to "Assignment Submissions", submissions_assignment_path(@assignment), class: "button tiny round move_up"
-    - else
-      - if @submission.nil?
-        .span.button.tiny.round.submit_submission_button.move_up
-          Submit Assignment
-      - else
-        .span.button.tiny.round.edit_submission_button.move_up
-          Edit Your Submission
-        
-      - unless @submission.nil?
-        .span.button.tiny.round.secondary.move_up
-          .color
-            = link_to "View Your Submission", submission_path(@submission.id)
+    = @assignment.assignment_nav(@submission)
+
+      
 .row
   %br
   %br
 .row
-  - if  current_user.has_role? :admin
-    .large-3.medium-3.columns.side_box
-      %h3
-        = @assignment.submissions.count
-      Submitted
-        
-      %br
-      = link_to "View All Submissions", submissions_assignment_path(@assignment)
-  - else
-    .large-3.medium-3.columns.side_box
-      - unless @submission.nil?
-        = link_to "Your Submission:", submission_path(@submission.id)
-        %br
-      Current Status:
-      %br
-      - if @submission.nil? || @submission.workflow_state.nil?
-        Not Yet Submitted
-      - else
-        = pretty_workflow_state(@submission.workflow_state)
+  = @assignment.side_box(@assignment, @submission)
 
   .large-6.medium-6.columns.large-offset-1.medium-offset-1.end
     %h4
@@ -90,27 +56,10 @@
     %br
     %br
 
-
+= @assignment.admin_or_user_modals(@assignment)
   
-​
+= @assignment.edit_submission_modal(@submission)
 
-- if current_user.has_role? :admin
-  .edit_assignment_modal.hide.modal_custom
-    %h1 Edit the Assignment
-    = form_for @assignment do |f|
-      = render 'assignments/form', f: f
 
-- else
-  .submit_submission_modal.hide.modal_custom
-    %h1 Submit your Assignment
-    = form_for Submission.new do |f|
-      = f.hidden_field :assignment_id, :value => @assignment.id
-      = f.hidden_field :user_id, :value => current_user.id
-      = render 'submissions/form', f: f
-  - unless @submission.nil?
-    .edit_submission_modal.hide.modal_custom
-      %h1 Edit Assignment Submission
-      = form_for @submission, url: submission_path(@submission), method: :patch do |f|
-        = render 'submissions/form', f: f
-
-      
+.assignment_info_modal.hide.modal_custom
+  = render 'info/assignment_info_modal'
